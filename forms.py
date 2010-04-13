@@ -16,3 +16,13 @@ class NovaAmonestacioForm(forms.Form):
 		self.fields['tipusAmon'].choices = [[x.id,x.nom] for x in TipusAmonestacio.objects.all()]
 		self.fields['gravetat'].choices = [[x.id,x.nom] for x in Gravetat.objects.all()]
 		self.fields['area'].choices = [[x.id,x.nom] for x in Area.objects.all()]
+	
+	def save(self):
+		data = self.cleaned_data
+		amonestacio = Amonestacio(
+			descripcio = data['descripcio'],
+			alumne = data['alumne'],
+			area = data['area'],
+			tipusAmon = data['tipusAmon'],
+			gravetat = data['gravetat']
+		)

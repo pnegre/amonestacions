@@ -12,6 +12,11 @@ from amonestacions.models import *
 
 
 def inici(request):
+	if request.method == 'POST':
+		form = NovaAmonestacioForm(request.POST)
+		if form.is_valid():
+			form.save()
+	
 	form = NovaAmonestacioForm()
 	return render_to_response(
 			'amonestacions/index.html', {
@@ -19,14 +24,19 @@ def inici(request):
 	} )
 
 def importData(request):
-	dom = parse('/home/pnegre/Downloads/exportacioDadesCentre.xml')
-	alumnes = dom.getElementsByTagName('ALUMNE')
-	for alumne in alumnes:
-		nom = alumne.getAttribute('nom')
-		l1 = alumne.getAttribute('ap1')
-		l2 = alumne.getAttribute('ap2')
-		a = Alumne(nom=nom,llinatge1=l1,llinatge2=l2)
-		a.save()
+	if request.method == 'POST':
+		f = request.FILES['file']
+		
+		# Revisar això. No estic segur que funcioni!!
+		dom = parse(f)
+		
+		alumnes = dom.getElementsByTagName('ALUMNE')
+		for alumne in alumnes:
+			nom = alumne.getAttribute('nom')
+			l1 = alumne.getAttribute('ap1')
+			l2 = alumne.getAttribute('ap2')
+			a = Alumne(nom=nom,llinatge1=l1,llinatge2=l2)
+			a.save()
 	
 	return render_to_response(
 			'amonestacions/import.html', {

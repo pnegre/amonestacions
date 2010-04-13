@@ -5,7 +5,7 @@ from amonestacions.models import *
 
 
 class NovaAmonestacioForm(forms.Form):
-	alumne = forms.CharField()
+	alumne = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}))
 	area = forms.ChoiceField()
 	tipusAmon = forms.ChoiceField()
 	gravetat = forms.ChoiceField()
@@ -19,10 +19,18 @@ class NovaAmonestacioForm(forms.Form):
 	
 	def save(self):
 		data = self.cleaned_data
+		
+		exp = '2003'
+		
+		are = Area.objects.filter(id=data['area'])[0]
+		tip = TipusAmonestacio.objects.filter(id=data['tipusAmon'])[0]
+		gra = Gravetat.objects.filter(id=data['gravetat'])[0]
+		alu = Alumne.objects.filter(expedient=exp)[0]
 		amonestacio = Amonestacio(
 			descripcio = data['descripcio'],
-			alumne = data['alumne'],
-			area = data['area'],
-			tipusAmon = data['tipusAmon'],
-			gravetat = data['gravetat']
+			alumne = alu,
+			area = are,
+			tipusAmon = tip,
+			gravetat = gra
 		)
+		amonestacio.save()

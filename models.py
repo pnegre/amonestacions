@@ -36,11 +36,16 @@ class Alumne(models.Model):
 
 class Amonestacio(models.Model):
 	descripcio = models.TextField()
+	dataHora = models.DateTimeField(auto_now_add=True)
 	
 	alumne = models.ForeignKey(Alumne)
 	area = models.ForeignKey(Area)
 	tipusAmon = models.ForeignKey(TipusAmonestacio)
 	gravetat = models.ForeignKey(Gravetat)
+	
+	
+	def __unicode__(self):
+		return self.alumne.nom + ' ' + self.gravetat.nom
 	
 
 

@@ -4,21 +4,33 @@ from django.db import models
 
 class Area(models.Model):
 	nom = models.CharField(max_length=200)
+	
+	def __unicode__(self):
+		return self.nom
 
 
 
 class Gravetat(models.Model):
 	nom = models.CharField(max_length=200)
+	
+	def __unicode__(self):
+		return self.nom
 
 
 class TipusAmonestacio(models.Model):
 	nom = models.CharField(max_length=200)
+	
+	def __unicode__(self):
+		return self.nom
 
 
 class Alumne(models.Model):
 	nom = models.CharField(max_length=200)
 	llinatge1 = models.CharField(max_length=200)
 	llinatge2 = models.CharField(max_length=200)
+	
+	def __unicode__(self):
+		return self.nom
 	
 
 class Amonestacio(models.Model):

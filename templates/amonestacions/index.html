@@ -1,6 +1,48 @@
 <html>
 
+<head>
+
+<title>Tickets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<style type="text/css">
+
+html {
+
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table td, table th {
+	vertical-align: top;
+	text-align: left;
+	border: 1px solid gray;
+	padding: 5px;
+}
+
+
+</style>
+
+</head>
+
+
+
 <body>
-hola
+<h1> Nova Amonestació </h1>
+
+<form method="post">
+
+<table>
+{{ form.as_table }}
+</table>
+<br>
+<input type="submit">
+
+</form>
+
 </body>
 </html>

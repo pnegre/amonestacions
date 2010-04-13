@@ -31,3 +31,14 @@ def importData(request):
 	return render_to_response(
 			'amonestacions/import.html', {
 	} )
+
+
+def ajaxAlumne(request):
+	res = []
+	als = Alumne.objects.filter(llinatge1__startswith=request.GET.get('l1',''))
+	for a in als:
+		data = { 'id': a.id, 'value': a.llinatge1 + ' ' + a.llinatge2 + ', ' + a.nom, 'info': '' }
+		res.append(data)
+		
+	r = { 'results': res }
+	return HttpResponse(simplejson.dumps(r), mimetype='application/javascript')

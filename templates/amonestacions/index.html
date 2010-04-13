@@ -6,6 +6,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/static/amonestacions/bsn.AutoSuggest_2.1.3_comp.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	var options = {
+		script: "/amonestacions/ajaxAlumne/?",
+		varname: "l1",
+		json: true,
+		maxresults: 35
+	};
+	var as = new bsn.AutoSuggest('id_alumne', options);
+
+
+});
+
+
+</script>
+
 
 <style type="text/css">
 
@@ -24,6 +44,22 @@ table td, table th {
 	padding: 5px;
 }
 
+div.autosuggest
+{
+	position: absolute;
+	padding: 10px 0 0 0;
+	background-color: #EEE;
+}
+
+div.autosuggest ul {
+	list-style-type: none;
+}
+
+div.autosuggest ul {
+	padding: 0px;
+	margin: 0px;
+	font-size: 10px;
+}
 
 </style>
 
@@ -37,9 +73,12 @@ table td, table th {
 <form method="post">
 
 <table>
+
 {{ form.as_table }}
+
 </table>
 <br>
+
 <input type="submit">
 
 </form>

@@ -6,5 +6,7 @@ urlpatterns = patterns('',
 
 	(r'^$', 'amonestacions.views.inici'),
 	(r'^import$', 'amonestacions.views.importData'),
+	
+	(r'^ajaxAlumne/$', 'amonestacions.views.ajaxAlumne'),
 
 )

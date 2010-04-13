@@ -30,7 +30,7 @@ class Alumne(models.Model):
 	llinatge2 = models.CharField(max_length=200)
 	
 	def __unicode__(self):
-		return self.nom
+		return self.llinatge1 + ' ' + self.llinatge2 + ', ' + self.nom
 	
 
 class Amonestacio(models.Model):

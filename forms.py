@@ -3,6 +3,8 @@
 from django import forms
 from amonestacions.models import *
 
+import re
+
 
 class NovaAmonestacioForm(forms.Form):
 	alumne = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}))
@@ -20,7 +22,8 @@ class NovaAmonestacioForm(forms.Form):
 	def save(self):
 		data = self.cleaned_data
 		
-		exp = '2003'
+		s = re.search('\[(\d+)\]',data['alumne'])
+		exp = s.group(1)
 		
 		are = Area.objects.filter(id=data['area'])[0]
 		tip = TipusAmonestacio.objects.filter(id=data['tipusAmon'])[0]

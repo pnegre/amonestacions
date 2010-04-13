@@ -28,6 +28,7 @@ class Alumne(models.Model):
 	nom = models.CharField(max_length=200)
 	llinatge1 = models.CharField(max_length=200)
 	llinatge2 = models.CharField(max_length=200)
+	expedient = models.CharField(max_length=200)
 	
 	def __unicode__(self):
 		return self.llinatge1 + ' ' + self.llinatge2 + ', ' + self.nom

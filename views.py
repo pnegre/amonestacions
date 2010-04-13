@@ -35,7 +35,9 @@ def importData(request):
 			nom = alumne.getAttribute('nom')
 			l1 = alumne.getAttribute('ap1')
 			l2 = alumne.getAttribute('ap2')
-			a = Alumne(nom=nom,llinatge1=l1,llinatge2=l2)
+			exp = alumne.getAttribute('expedient')
+			
+			a = Alumne(nom=nom,llinatge1=l1,llinatge2=l2,expedient=exp)
 			a.save()
 	
 	return render_to_response(

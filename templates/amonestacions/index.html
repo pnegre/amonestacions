@@ -1,11 +1,8 @@
-<html>
 
-<head>
+{% extends "amonestacions/base.html" %}
 
-<title>Amonestacions</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{% block header %}
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="/static/amonestacions/bsn.AutoSuggest_2.1.3_comp.js"></script>
 
 <script type="text/javascript">
@@ -63,11 +60,11 @@ div.autosuggest ul {
 
 </style>
 
-</head>
+{% endblock %}
 
 
+{% block body %}
 
-<body>
 <h1> Nova Amonestació </h1>
 
 {% if ok %}
@@ -91,5 +88,4 @@ div.autosuggest ul {
 
 {% endif %}
 
-</body>
-</html>
+{% endblock %}

@@ -30,10 +30,22 @@ def novaAmon(request):
 			'form': form,
 	} )
 
+
+
+
+
 def consultaAmon(request):
+	if request.method == 'POST':
+		pass
+	
+	amonList = Amonestacio.objects.all()	
+	
 	return render_to_response(
 			'amonestacions/consulta.html', {
+			'amonList': amonList
 	} )
+
+
 
 
 def importData(request):

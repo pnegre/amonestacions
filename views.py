@@ -15,25 +15,24 @@ from amonestacions.models import *
 
 
 def novaAmon(request):
+	ok = False
 	if request.method == 'POST':
 		form = NovaAmonestacioForm(request.POST)
 		if form.is_valid():
 			form.save()
+			ok = True
 		
-		return render_to_response(
-			'amonestacions/novaAmon.html', {
-				'ok': True
-		} )
 	
 	form = NovaAmonestacioForm()
 	return render_to_response(
-			'amonestacions/novaAmon.html', {
-				'form': form
+		'amonestacions/novaAmon.html', {
+			'ok': ok,
+			'form': form,
 	} )
 
 def consultaAmon(request):
 	return render_to_response(
-			'amonestacions/base.html', {
+			'amonestacions/consulta.html', {
 	} )
 
 

@@ -1,0 +1,45 @@
+
+
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	monthnames = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Decembre']
+	daynamesshort = ['DU', 'DL', 'DM', 'DX', 'DJ', 'DV', 'DS']
+	$(".dpicker").datepicker( { 
+		dateFormat: 'dd-mm-yy', 
+		monthNames: monthnames, 
+		dayNamesMin: daynamesshort, 
+		firstDay: 1 
+	} );
+
+});
+
+
+</script>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<h1> Consulta Amonestacions </h1>
+
+
+<form>
+
+Data1: <input type="text" name="data1" class="dpicker"><br><br>
+Data2: <input type="text" name="data2" class="dpicker">
+
+</form>
+
+
+
+
+{% endblock %}

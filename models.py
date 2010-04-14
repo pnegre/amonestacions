@@ -22,7 +22,7 @@ class Professor(models.Model):
 	codi = models.CharField(max_length=200)
 	
 	def __unicode__(self):
-		return self.nom
+		return  self.llinatge1 + ' ' + self.llinatge2 + ', ' + self.nom
 
 
 class Grup(models.Model):
@@ -33,7 +33,7 @@ class Grup(models.Model):
 	curs = models.ForeignKey(Curs)
 	
 	def __unicode__(self):
-		return self.codi
+		return self.curs.nom + " " + self.nom
 
 
 class Alumne(models.Model):

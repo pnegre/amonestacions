@@ -54,7 +54,7 @@ def importData(request):
 		
 		cursos = dom.getElementsByTagName('CURS')
 		for curs in cursos:
-			c = Curs(nom=curs.getAttribute('descripcio'))
+			c = Curs(nom=curs.getAttribute('descripcio'),codi=curs.getAttribute('codi'))
 			c.save()
 			
 			grups = curs.getElementsByTagName('GRUP')
@@ -64,9 +64,10 @@ def importData(request):
 				if len(prof) == 0: continue
 				
 				g = Grup(
-					nom=grup.getAttribute('descripcio'),
+					nom = grup.getAttribute('nom'),
 					curs = c,
 					tutor = prof[0],
+					codi = grup.getAttribute('codi'),
 				)
 				g.save()
 		

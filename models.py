@@ -6,6 +6,7 @@ from django.db import models
 
 class Curs(models.Model):
 	nom = models.CharField(max_length=200)
+	codi = models.CharField(max_length=200)
 	
 	def __unicode__(self):
 		return self.nom
@@ -18,6 +19,7 @@ class Professor(models.Model):
 	nom = models.CharField(max_length=200)
 	llinatge1 = models.CharField(max_length=200)
 	llinatge2 = models.CharField(max_length=200)
+	codi = models.CharField(max_length=200)
 	
 	def __unicode__(self):
 		return self.nom
@@ -25,12 +27,13 @@ class Professor(models.Model):
 
 class Grup(models.Model):
 	nom = models.CharField(max_length=200)
+	codi = models.CharField(max_length=200)
 	
 	tutor = models.ForeignKey(Professor)
 	curs = models.ForeignKey(Curs)
 	
 	def __unicode__(self):
-		return self.nom
+		return self.codi
 
 
 class Alumne(models.Model):

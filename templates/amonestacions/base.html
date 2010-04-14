@@ -2,6 +2,8 @@
 
 <head>
 
+<LINK REL="StyleSheet" HREF="/static/amonestacions/estils.css" TYPE="text/css" MEDIA="screen">
+
 <title>Amonestacions</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -17,9 +19,22 @@
 
 <body>
 
-{% block body %}
+<div>
 
-{% endblock %}
+<a href="/amonestacions/">Nova Amonestació</a> || 
+<a href="/amonestacions/consulta/">Llistat amonestacions</a> || 
+<a href="/amonestacions/altres/">Altres</a>
+
+</div>
+
+<div>
+
+	{% block body %}
+
+	{% endblock %}
+
+</div>
+
 
 </body>
 

@@ -14,23 +14,27 @@ from amonestacions.models import *
 
 
 
-def inici(request):
+def novaAmon(request):
 	if request.method == 'POST':
 		form = NovaAmonestacioForm(request.POST)
 		if form.is_valid():
 			form.save()
 		
 		return render_to_response(
-			'amonestacions/index.html', {
+			'amonestacions/novaAmon.html', {
 				'ok': True
 		} )
 	
 	form = NovaAmonestacioForm()
 	return render_to_response(
-			'amonestacions/index.html', {
+			'amonestacions/novaAmon.html', {
 				'form': form
 	} )
 
+def consultaAmon(request):
+	return render_to_response(
+			'amonestacions/base.html', {
+	} )
 
 
 def importData(request):

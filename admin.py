@@ -9,6 +9,10 @@ admin.site.register(TipusAmonestacio)
 admin.site.register(Alumne)
 admin.site.register(Amonestacio)
 
+admin.site.register(Curs)
+admin.site.register(Professor)
+admin.site.register(Grup)
+
 
 
 

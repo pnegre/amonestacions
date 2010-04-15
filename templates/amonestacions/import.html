@@ -10,15 +10,21 @@
 <body>
 <h1> Importar Alumnes (xml del gestib)</h1>
 
-<form method="post" enctype="multipart/form-data">
+{% if ok %}
 
-<input type="file" name="file">
-<br><br>
-<input type="submit">
+	OK
 
-</form>
+{% else %}
 
-{{ data }}
+	<form method="post" enctype="multipart/form-data">
+
+	<input type="file" name="file">
+	<br><br>
+	<input type="submit">
+
+	</form>
+
+{% endif %}
 
 </body>
 </html>

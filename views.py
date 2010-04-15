@@ -49,6 +49,7 @@ def consultaAmon(request):
 
 
 def importData(request):
+	ok = False
 	if request.method == 'POST':
 		f = request.FILES['file']
 		dom = parse(f)
@@ -95,9 +96,12 @@ def importData(request):
 			
 			a = Alumne(nom=nom,llinatge1=l1,llinatge2=l2,expedient=exp,grup=gp[0])
 			a.save()
+		
+		ok = True
 	
 	return render_to_response(
 			'amonestacions/import.html', {
+				'ok': ok,
 	} )
 
 

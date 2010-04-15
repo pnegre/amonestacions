@@ -60,6 +60,7 @@ class Area(models.Model):
 
 class Gravetat(models.Model):
 	nom = models.CharField(max_length=200)
+	punts = models.IntegerField()
 	
 	def __unicode__(self):
 		return self.nom

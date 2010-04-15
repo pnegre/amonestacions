@@ -3,7 +3,7 @@
 from django import forms
 from amonestacions.models import *
 
-import re
+import re, datetime
 
 
 class NovaAmonestacioForm(forms.Form):
@@ -37,3 +37,14 @@ class NovaAmonestacioForm(forms.Form):
 			gravetat = gra
 		)
 		amonestacio.save()
+
+
+class ConsultaAmonForm(forms.Form):
+	data1 = forms.DateField()
+	data2 = forms.DateField()
+	grup = forms.ChoiceField()
+	
+	def __init__(self,*args,**kwrds):
+		super(ConsultaAmonForm,self).__init__(*args,**kwrds)
+		self.fields['grup'].choices = [[x.id,str(x)] for x in Grup.objects.all()]
+		self.fields['grup'].choices.insert(0,[-1,'TOTS'])

@@ -36,13 +36,17 @@ def novaAmon(request):
 
 def consultaAmon(request):
 	if request.method == 'POST':
-		pass
+		amonList = Amonestacio.objects.all()
+		return render_to_response(
+				'amonestacions/consulta.html', {
+				'amonList': amonList,
+		} )
 	
-	amonList = Amonestacio.objects.all()	
 	
+	form = ConsultaAmonForm()
 	return render_to_response(
 			'amonestacions/consulta.html', {
-			'amonList': amonList
+			'form': form,
 	} )
 
 

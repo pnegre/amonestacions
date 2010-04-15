@@ -11,7 +11,7 @@ $(document).ready(function() {
 	
 	monthnames = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Decembre']
 	daynamesshort = ['DU', 'DL', 'DM', 'DX', 'DJ', 'DV', 'DS']
-	$(".dpicker").datepicker( { 
+	$("input[name=data1],input[name=data2]").datepicker( { 
 		dateFormat: 'dd-mm-yy', 
 		monthNames: monthnames, 
 		dayNamesMin: daynamesshort, 
@@ -31,26 +31,30 @@ $(document).ready(function() {
 
 <h1> Consulta Amonestacions </h1>
 
+{% if form %}
+	<form method="post">
 
-<form method="post">
+	{{ form.as_p }}
 
-Data1: <input type="text" name="data1" class="dpicker"><br><br>
-Data2: <input type="text" name="data2" class="dpicker">
-<br><br>
-<input type="submit">
+	<input type="submit">
 
-</form>
+	</form>
+{% endif %}
 
-
-<ul>
-
+{% if amonList %}
+<table>
+<tr><th>Alumne</th><th>Data</th><th>Grup</th><th>Gravetat</th></tr>
 {% for a in amonList %}
 
-	<li> {{ a.dataHora }} </li>
+	<tr>
+	<td> {{ a.alumne }} </td>
+	<td> {{ a.dataHora|date:"d / m / Y" }} </td>
+	<td> {{ a.alumne.grup }} </td>
+	<td> {{ a.gravetat.nom }} </td>
+	</tr>
 
 {% endfor %}
-
-</ul>
-
+</table>
+{% endif %}
 
 {% endblock %}

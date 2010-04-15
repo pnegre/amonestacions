@@ -17,11 +17,30 @@ $(document).ready(function() {
 		dayNamesMin: daynamesshort, 
 		firstDay: 1 
 	} );
+	
+// 	$('.t1').next().toggle();
+	
+	$('.t1').click(function() {
+		$(this).next().toggle();
+	});
 
 });
 
 
 </script>
+
+<style type="text/css">
+
+	.t2 {
+		display: none;
+	}
+	
+	.t1 > td:first-child {
+		cursor: pointer;
+	}
+
+</style>
+
 
 {% endblock %}
 
@@ -46,12 +65,16 @@ $(document).ready(function() {
 <tr><th>Alumne</th><th>Data</th><th>Grup</th><th>Gravetat</th></tr>
 {% for a in amonList %}
 
-	<tr>
+	<tr class="t1">
 	<td> {{ a.alumne }} </td>
 	<td> {{ a.dataHora|date:"d / m / Y" }} </td>
 	<td> {{ a.alumne.grup }} </td>
 	<td> {{ a.gravetat.nom }} </td>
 	</tr>
+	<tr class="t2"><td colspan="4"> 
+		Tutor: {{ a.alumne.grup.tutor }} <br><br>
+		Descripció: {{ a.descripcio }} 
+	</td></tr>
 
 {% endfor %}
 </table>

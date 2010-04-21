@@ -3,6 +3,7 @@
 from django.http import HttpResponse
 from django.utils import simplejson
 from amonestacions.models import *
+from gestib.models import *
 
 
 

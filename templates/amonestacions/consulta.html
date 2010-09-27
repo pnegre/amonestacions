@@ -18,11 +18,9 @@ $(document).ready(function() {
 		firstDay: 1 
 	} );
 	
-// 	$('.t1').next().toggle();
-	
-	$('.t1').click(function() {
-		$(this).next().toggle();
-	});
+// 	$('.t1').click(function() {
+// 		$(this).next().toggle();
+// 	});
 
 });
 
@@ -35,9 +33,9 @@ $(document).ready(function() {
 		display: none;
 	}
 	
-	.t1 > td:first-child {
+/*	.t1 > td:first-child {
 		cursor: pointer;
-	}
+	}*/
 
 </style>
 
@@ -66,7 +64,7 @@ $(document).ready(function() {
 {% for a in amonList %}
 
 	<tr class="t1">
-	<td> {{ a.alumne }} </td>
+	<td> <a href="/amonestacions/veureAlumne/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
 	<td> {{ a.dataHora|date:"d / m / Y" }} </td>
 	<td> {{ a.alumne.grup }} </td>
 	<td> {{ a.gravetat.nom }} </td>

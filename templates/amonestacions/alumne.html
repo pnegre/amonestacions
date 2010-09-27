@@ -1,0 +1,47 @@
+
+
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+});
+
+
+</script>
+
+<style type="text/css">
+
+</style>
+
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<h1> Alumne {{ alumne }}</h1>
+
+<table>
+<tr><th> Falta </th> <th> Data </th> <th> Professor </th> <th> Punts </th></tr>
+{% for a in amonList %}
+
+<tr> 
+	<td> {{a.gravetat.nom }} </td>
+	<td> {{ a.dataHora|date:"d / m / Y" }} </td>
+	<td> {{ a.professor }} </td>
+	<td> {{ a.gravetat.punts }} </td>
+</tr>
+
+{% endfor %}
+</table>
+
+<br><br>Total Punts: {{ punts }}
+
+
+{% endblock %}

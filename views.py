@@ -31,6 +31,21 @@ def novaAmon(request):
 
 
 
+def veureAlumne(request,alumne_exp):
+	alumne = Alumne.objects.filter(expedient=alumne_exp)[0]
+	amonList = Amonestacio.objects.filter(alumne=alumne)
+	pts = 100
+	for a in amonList:
+		pts += a.gravetat.punts
+	return render_to_response(
+		'amonestacions/alumne.html', {
+			'alumne': alumne,
+			'amonList': amonList,
+			'punts': pts
+	} )
+
+
+
 
 
 def consultaAmon(request):

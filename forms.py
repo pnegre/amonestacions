@@ -16,7 +16,7 @@ class NovaAmonestacioForm(forms.Form):
 	def __init__(self,*args,**kwrds):
 		super(NovaAmonestacioForm,self).__init__(*args,**kwrds)
 		self.fields['gravetat'].choices = [[x.id,x.nom] for x in Gravetat.objects.all()]
-		self.fields['profe'].choices = [[x.id,x] for x in Professor.objects.all()]
+		self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all()]
 	
 	def save(self):
 		data = self.cleaned_data
@@ -26,10 +26,12 @@ class NovaAmonestacioForm(forms.Form):
 		
 		gra = Gravetat.objects.filter(id=data['gravetat'])[0]
 		alu = Alumne.objects.filter(expedient=exp)[0]
+		prof = Professor.objects.filter(codi=data['profe'])[0]
 		amonestacio = Amonestacio(
 			descripcio = data['descripcio'],
 			alumne = alu,
-			gravetat = gra
+			gravetat = gra,
+			professor = prof,
 		)
 		amonestacio.save()
 

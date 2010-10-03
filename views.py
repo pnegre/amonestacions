@@ -4,6 +4,8 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.utils import simplejson
 
+from django.contrib.auth.decorators import login_required, permission_required
+
 from amonestacions.forms import *
 from amonestacions.models import *
 from gestib.models import *
@@ -12,7 +14,7 @@ from gestib.models import *
 
 
 
-
+@permission_required('amonestacions.posar_amonestacions')
 def novaAmon(request):
 	ok = False
 	if request.method == 'POST':
@@ -30,7 +32,7 @@ def novaAmon(request):
 	} )
 
 
-
+@permission_required('amonestacions.posar_amonestacions')
 def veureAlumne(request,alumne_exp):
 	alumne = Alumne.objects.filter(expedient=alumne_exp)[0]
 	amonList = Amonestacio.objects.filter(alumne=alumne)
@@ -47,7 +49,7 @@ def veureAlumne(request,alumne_exp):
 
 
 
-
+@permission_required('amonestacions.posar_amonestacions')
 def consultaAmon(request):
 	if request.method == 'POST':
 		amonList = Amonestacio.objects.all()

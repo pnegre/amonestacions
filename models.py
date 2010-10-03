@@ -24,6 +24,11 @@ class Amonestacio(models.Model):
 	def __unicode__(self):
 		return self.alumne.nom + ' ' + self.gravetat.nom
 	
+	class Meta:
+		permissions = (
+			("posar_amonestacions","Pot posar amonestacions"),
+		)
+	
 
 
 

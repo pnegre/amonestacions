@@ -12,8 +12,6 @@ from gestib.models import *
 
 
 
-
-
 @permission_required('amonestacions.posar_amonestacions')
 def novaAmon(request):
 	ok = False
@@ -32,9 +30,10 @@ def novaAmon(request):
 	} )
 
 
+
 @permission_required('amonestacions.posar_amonestacions')
 def veureAlumne(request,alumne_exp):
-	alumne = Alumne.objects.filter(expedient=alumne_exp)[0]
+	alumne = Alumne.objects.get(expedient=alumne_exp)
 	amonList = Amonestacio.objects.filter(alumne=alumne)
 	pts = 100
 	for a in amonList:
@@ -48,7 +47,6 @@ def veureAlumne(request,alumne_exp):
 
 
 
-
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAmon(request):
 	if request.method == 'POST':
@@ -56,8 +54,7 @@ def consultaAmon(request):
 		return render_to_response(
 				'amonestacions/consulta.html', {
 				'amonList': amonList,
-		} )
-	
+		} )	
 	
 	form = ConsultaAmonForm()
 	return render_to_response(

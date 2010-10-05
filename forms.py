@@ -36,6 +36,7 @@ class NovaAmonestacioForm(forms.Form):
 		amonestacio.save()
 
 
+
 class ConsultaAmonForm(forms.Form):
 	data1 = forms.DateField()
 	data2 = forms.DateField()

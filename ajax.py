@@ -8,6 +8,7 @@ from amonestacions.models import *
 from gestib.models import *
 
 
+
 @permission_required('amonestacions.posar_amonestacions')
 def llistaAlumnes(request):
 	als = Alumne.objects.filter(llinatge1__startswith=request.GET.get('l1',''))

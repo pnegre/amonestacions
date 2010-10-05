@@ -4,6 +4,7 @@ from django.db import models
 import gestib.models
 
 
+
 class Gravetat(models.Model):
 	nom = models.CharField(max_length=200)
 	punts = models.IntegerField()

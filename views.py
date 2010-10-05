@@ -74,3 +74,20 @@ def consultaAmon(request):
 
 
 
+@permission_required('amonestacions.posar_amonestacions')
+def consultaAlumne(request):
+	if request.method == 'POST':
+		amonList = Amonestacio.objects.all()
+		return render_to_response(
+				'amonestacions/consultaAlumne.html', {
+				'amonList': amonList,
+		} )	
+	
+	form = ConsultaAmonAlumneForm()
+	return render_to_response(
+			'amonestacions/consultaAlumne.html', {
+			'form': form,
+	} )
+
+
+

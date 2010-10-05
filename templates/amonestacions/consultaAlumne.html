@@ -1,0 +1,102 @@
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript" src="/static/amonestacions/bsn.AutoSuggest_2.1.3_comp.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	var options = {
+		script: "/amonestacions/llistaAlumnes/?",
+		varname: "l1",
+		json: true,
+		maxresults: 35
+	};
+	var as = new bsn.AutoSuggest('id_alumne', options);
+	
+	$("input:submit").button();
+
+
+});
+
+
+</script>
+
+
+<style type="text/css">
+
+div.autosuggest
+{
+	position: absolute;
+	padding: 10px 0 0 0;
+	background-color: #EEE;
+}
+
+div.autosuggest ul {
+	list-style-type: none;
+}
+
+div.autosuggest ul {
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+table#t1 td, table#t1 th {
+	width: auto;
+}
+
+table#t1 {
+	width: auto;
+	margin-bottom: 10px;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1> Consulta per alumne </h1>
+
+{% if form %}
+	<form method="post">
+
+	<table id="t1">
+
+	{{ form.as_table }}
+
+	</table>
+	<br>
+
+	<input type="submit">
+
+	</form>
+{% endif %}
+
+{% if amonList %}
+	<table>
+	<tr><th>Alumne</th><th>Data</th><th>Grup</th><th>Gravetat</th></tr>
+	{% for a in amonList %}
+
+		<tr class="t1">
+		<td> <a href="/amonestacions/veureAlumne/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
+		<td> {{ a.dataHora|date:"d / m / Y" }} </td>
+		<td> {{ a.alumne.grup }} </td>
+		<td> {{ a.gravetat.nom }} </td>
+		</tr>
+		<tr class="t2"><td colspan="4"> 
+			Tutor: {{ a.alumne.grup.tutor }} <br><br>
+			Descripció: {{ a.descripcio }} 
+		</td></tr>
+
+	{% endfor %}
+	</table>
+{% endif %}
+
+
+{% endblock %}

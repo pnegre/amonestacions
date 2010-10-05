@@ -46,3 +46,16 @@ class ConsultaAmonForm(forms.Form):
 		self.fields['grup'].choices = [[x.id,unicode(x)] for x in Grup.objects.all()]
 		self.fields['grup'].choices.insert(0,[-1,'TOTS'])
 		self.fields['periode'].choices = [[x.id,unicode(x)] for x in Periode.objects.all()]
+
+
+
+class ConsultaAmonAlumneForm(forms.Form):
+	alumne = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}))
+	periode = forms.ChoiceField()
+	
+	def __init__(self,*args,**kwrds):
+		super(ConsultaAmonAlumneForm,self).__init__(*args,**kwrds)
+		self.fields['periode'].choices = [[x.id,unicode(x)] for x in Periode.objects.all()]
+
+
+

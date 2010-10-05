@@ -5,7 +5,10 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
 
 	(r'^$', 'amonestacions.views.novaAmon'),
+	
 	(r'^consultagrup/$', 'amonestacions.views.consultaAmon'),
+	(r'^consultaAlumne/$', 'amonestacions.views.consultaAlumne'),
+	
 	
 	(r'^llistaAlumnes/$', 'amonestacions.ajax.llistaAlumnes'),
 	

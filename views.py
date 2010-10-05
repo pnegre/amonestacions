@@ -53,14 +53,14 @@ def veureAlumne(request,alumne_exp):
 def consultaAmon(request):
 	if request.method == 'POST':
 		post = request.POST
-		#dt1 = datetime.datetime.strptime(post['data1'],'%d-%m-%Y')
-		#dt2 = datetime.datetime.strptime(post['data2'],'%d-%m-%Y')
+		periode = Periode.objects.get(id=post['periode'])
 		if post['grup'] != '-1':
 			grup = Grup.objects.get(id=post['grup'])
 			amonList = Amonestacio.objects.filter(alumne__grup=grup)
 		else:
 			amonList = Amonestacio.objects.all()
 		
+		amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
 		return render_to_response(
 				'amonestacions/consulta.html', {
 				'amonList': amonList,

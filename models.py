@@ -29,7 +29,17 @@ class Amonestacio(models.Model):
 		permissions = (
 			("posar_amonestacions","Pot posar amonestacions"),
 		)
+
+
+
+class Periode(models.Model):
+	descripcio = models.TextField()
+	dt1 = models.DateTimeField()
+	dt2 = models.DateTimeField()
 	
+	def __unicode__(self):
+		return self.descripcio
+
 
 
 

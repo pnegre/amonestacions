@@ -36,6 +36,16 @@ $(document).ready(function() {
 /*	.t1 > td:first-child {
 		cursor: pointer;
 	}*/
+	
+	table#t1 td, table#t1 th {
+		width: auto;
+/* 		border: none; */
+	}
+	
+	table#t1 {
+		width: auto;
+		margin-bottom: 10px;
+	}
 
 </style>
 
@@ -50,9 +60,11 @@ $(document).ready(function() {
 
 {% if form %}
 	<form method="post">
-
-	{{ form.as_p }}
-
+	
+	<table id="t1">
+	{{ form.as_table }}
+	</table>
+	
 	<input type="submit">
 
 	</form>

@@ -11,6 +11,18 @@
 <script type="text/javascript" src="/static/amonestacions/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/static/amonestacions/js/jquery-ui-1.8.custom.min.js"></script>
 
+<style type="text/css">
+
+#toright {
+	float: right;
+}
+
+#topmenu {
+	padding: 10px;
+	background-color: #EEE;
+}
+
+</style>
 
 
 {% block header %}
@@ -21,11 +33,18 @@
 
 <body>
 
-<div>
+<div id="topmenu">
 
 <a href="/amonestacions/">Nova Incidència</a> || 
 <a href="/amonestacions/consultagrup/">Llistat incidències (grup i data)</a> || 
 <a href="/amonestacions/consultaAlumne/">Consultar incidència per alumne</a>
+
+<span id="toright">
+
+<a href="/auth/logout"> Sortir </a>
+
+</span>
+
 
 </div>
 

@@ -79,7 +79,6 @@ def consultaAlumne(request):
 	if request.method == 'POST':
 		s = re.search('\[(\d+)\]',request.POST['alumne'])
 		exp = s.group(1)
-		print exp
 		
 		amonList = Amonestacio.objects.filter(alumne__expedient=exp)
 		return render_to_response(

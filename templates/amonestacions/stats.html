@@ -1,0 +1,44 @@
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+});
+
+
+</script>
+
+
+<style type="text/css">
+
+#testads {
+	width: 300px;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1> Estadístiques </h1>
+
+<table id="testads">
+
+<tr> <th> Curs </th> <th> Num. faltes </th> </tr>
+
+{% for s in sts %}
+
+<tr> <td> {{ s.nomGrup }} </td> <td> {{ s.faltes }} </td> </tr>
+
+{% endfor %}
+
+
+</table>
+
+{% endblock %}

@@ -92,5 +92,24 @@ def consultaAlumne(request):
 			'form': form,
 	} )
 
+@permission_required('amonestacions.posar_amonestacions')
+def stats(request):
+	class EstObj: 
+		pass
+	
+	sts = []
+	grups = Grup.objects.all()
+	
+	for g in grups:
+		e = EstObj()
+		e.nomGrup = unicode(g)
+		amons = Amonestacio.objects.filter(alumne__grup=g)
+		e.faltes = len(amons)
+		sts.append(e)
+		
+	return render_to_response(
+			'amonestacions/stats.html', {
+				'sts': sts,
+	} )
 
 

@@ -83,11 +83,13 @@ def consultaAmon(request):
 			x.alumne = aux[a]['al']
 			amons.append(x)
 		
+		amons = sorted(amons, key = lambda a: a.pts)
+		
 		return render_to_response(
 				'amonestacions/consulta.html', {
 				'amons': amons,
 				'perid': periode.id,
-		} )	
+		} )
 	
 	form = ConsultaAmonForm()
 	return render_to_response(

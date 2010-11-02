@@ -34,9 +34,10 @@ def novaAmon(request):
 
 
 @permission_required('amonestacions.posar_amonestacions')
-def veureAlumne(request,alumne_exp):
+def veureAlumne(request,perid,alumne_exp):
 	alumne = Alumne.objects.get(expedient=alumne_exp)
-	amonList = Amonestacio.objects.filter(alumne=alumne)
+	periode = Periode.objects.get(id=perid)
+	amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
 	pts = Config.objects.all()[0].maxPoints
 	for a in amonList:
 		pts += a.gravetat.punts
@@ -47,6 +48,17 @@ def veureAlumne(request,alumne_exp):
 			'punts': pts
 	} )
 
+
+def resumeixAmonestacions(amonList):
+	aux = {}
+	pts = Config.objects.all()[0].maxPoints
+	for a in amonList:
+		al = unicode(a.alumne)
+		if al in aux.keys():
+			aux[al]['pts'] += a.gravetat.punts
+		else:
+			aux[al] = {'pts': pts + a.gravetat.punts, 'al': a.alumne}
+	return aux
 
 
 @permission_required('amonestacions.posar_amonestacions')
@@ -61,9 +73,20 @@ def consultaAmon(request):
 			amonList = Amonestacio.objects.all()
 		
 		amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
+		
+		class AmObj: pass
+		amons = []
+		aux = resumeixAmonestacions(amonList)
+		for a in aux.keys():
+			x = AmObj()
+			x.pts = aux[a]['pts']
+			x.alumne = aux[a]['al']
+			amons.append(x)
+		
 		return render_to_response(
 				'amonestacions/consulta.html', {
-				'amonList': amonList,
+				'amons': amons,
+				'perid': periode.id,
 		} )	
 	
 	form = ConsultaAmonForm()

@@ -70,18 +70,17 @@ $(document).ready(function() {
 	</form>
 {% endif %}
 
-{% if amonList %}
+{% if amons %}
 <table>
-<tr><th>Alumne</th><th>Data</th><th>Grup</th><th>Gravetat</th></tr>
-{% for a in amonList %}
+<tr><th>Alumne</th><th>Grup</th><th>Punts restants</th></tr>
+{% for a in amons %}
 
 	<tr class="t1">
-	<td> <a href="/amonestacions/veureAlumne/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
-	<td> {{ a.dataHora|date:"d / m / Y" }} </td>
+	<td> <a href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
 	<td> {{ a.alumne.grup }} </td>
-	<td> {{ a.gravetat.nom }} </td>
+	<td> {{ a.pts }} </td>
 	</tr>
-	<tr class="t2"><td colspan="4"> 
+	<tr class="t2"><td colspan="2"> 
 		Tutor: {{ a.alumne.grup.tutor }} <br><br>
 		Descripció: {{ a.descripcio }} 
 	</td></tr>

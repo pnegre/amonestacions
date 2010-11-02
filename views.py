@@ -37,7 +37,7 @@ def novaAmon(request):
 def veureAlumne(request,alumne_exp):
 	alumne = Alumne.objects.get(expedient=alumne_exp)
 	amonList = Amonestacio.objects.filter(alumne=alumne)
-	pts = 100
+	pts = Config.objects.all()[0].maxPoints
 	for a in amonList:
 		pts += a.gravetat.punts
 	return render_to_response(

@@ -41,6 +41,9 @@ class Periode(models.Model):
 		return self.descripcio
 
 
+class Config(models.Model):
+	maxPoints = models.IntegerField()
+
 
 
 

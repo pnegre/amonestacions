@@ -8,7 +8,7 @@ from amonestacions.models import *
 admin.site.register(Gravetat)
 admin.site.register(Amonestacio)
 admin.site.register(Periode)
-
+admin.site.register(Config)
 
 
 

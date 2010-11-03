@@ -9,6 +9,7 @@ admin.site.register(Gravetat)
 admin.site.register(Amonestacio)
 admin.site.register(Periode)
 admin.site.register(Config)
+admin.site.register(InfoGrup)
 
 
 

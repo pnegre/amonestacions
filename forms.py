@@ -34,6 +34,7 @@ class NovaAmonestacioForm(forms.Form):
 			professor = prof,
 		)
 		amonestacio.save()
+		self.amonestacio = amonestacio
 
 
 

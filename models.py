@@ -45,5 +45,11 @@ class Config(models.Model):
 	maxPoints = models.IntegerField()
 
 
+class InfoGrup(models.Model):
+	grup = models.ForeignKey(gestib.models.Grup)
+	emailTutor = models.CharField(max_length=200)
+	
+	def __unicode__(self):
+		return unicode(self.grup) + " | " + self.emailTutor
 
 

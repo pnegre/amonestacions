@@ -5,6 +5,7 @@ from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.utils import simplejson
+from django.core.mail import send_mail
 
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -22,6 +23,23 @@ def novaAmon(request):
 		if form.is_valid():
 			form.save()
 			ok = True
+			
+			try:
+				emailTutor = InfoGrup.objects.get(grup=form.amonestacio.alumne.grup).emailTutor
+				txt = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.", 'utf-8') + "\n\n"
+				txt += unicode("L'alumne ",'utf-8') + unicode(form.amonestacio.alumne) + unicode(" Ha estat sancionat mitjançant el programa d'amonestacions ",'utf-8')
+				txt += unicode("amb una falta de tipus ",'utf-8') + unicode(form.amonestacio.gravetat.nom) + ". "
+				txt += unicode("Això comporta actualitzar el seu saldo en ",'utf-8') + unicode(form.amonestacio.gravetat.punts) + unicode(" punts.") + "\n\n"
+				txt += unicode("Professor que ha introduit la falta: ",'utf-8') + unicode(form.amonestacio.professor) + "\n\n"
+				txt += unicode("Motiu/explicació: ",'utf-8') + unicode(form.amonestacio.descripcio)
+				
+				send_mail(unicode('[Nova amonestació] alumne ','utf-8') + unicode(form.amonestacio.alumne),
+					txt,
+					'amonestacions@esliceu.com',
+					[emailTutor], fail_silently=False)
+			
+			except:
+				pass
 		
 	
 	form = NovaAmonestacioForm()

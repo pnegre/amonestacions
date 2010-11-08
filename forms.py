@@ -21,6 +21,16 @@ class NovaAmonestacioForm(forms.Form):
 		self.fields['gravetat'].choices = [[x.id,x.nom] for x in Gravetat.objects.all()]
 		self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all()]
 	
+	def clean_alumne(self):
+		data = self.cleaned_data['alumne']
+		try:
+			s = re.search('\[(\d+)\]',data)
+			exp = s.group(1)
+			return data
+		except:
+			raise forms.ValidationError("El camp alumne no té un valor correcte")
+		
+	
 	def save(self):
 		data = self.cleaned_data
 		

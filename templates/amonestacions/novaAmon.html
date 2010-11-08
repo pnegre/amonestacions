@@ -45,6 +45,13 @@ div.autosuggest ul {
 	font-size: 12px;
 }
 
+table#amonform ul {
+	color: red;
+	margin: 0px;
+	padding: 0px;
+	list-style-type:none;
+}
+
 </style>
 
 {% endblock %}
@@ -62,7 +69,7 @@ div.autosuggest ul {
 
 	<form method="post">
 
-	<table>
+	<table id="amonform">
 
 	{{ form.as_table }}
 

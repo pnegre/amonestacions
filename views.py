@@ -46,9 +46,9 @@ def novaAmon(request):
 			
 			except:
 				pass
-		
+	else:
+		form = NovaAmonestacioForm()
 	
-	form = NovaAmonestacioForm()
 	return render_to_response(
 		'amonestacions/novaAmon.html', {
 			'ok': ok,

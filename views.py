@@ -13,6 +13,8 @@ from amonestacions.forms import *
 from amonestacions.models import *
 from gestib.models import *
 
+import aux
+
 
 
 @permission_required('amonestacions.posar_amonestacions')
@@ -67,16 +69,6 @@ def veureAlumne(request,perid,alumne_exp):
 	} )
 
 
-def resumeixAmonestacions(amonList):
-	aux = {}
-	pts = Config.objects.all()[0].maxPoints
-	for a in amonList:
-		al = unicode(a.alumne)
-		if al in aux.keys():
-			aux[al]['pts'] += a.gravetat.punts
-		else:
-			aux[al] = {'pts': pts + a.gravetat.punts, 'al': a.alumne}
-	return aux
 
 
 @permission_required('amonestacions.posar_amonestacions')
@@ -103,11 +95,11 @@ def consultaAmonPost(request):
 		
 		class AmObj: pass
 		amons = []
-		aux = resumeixAmonestacions(amonList)
-		for a in aux.keys():
+		temp = aux.resumeixAmonestacions(amonList)
+		for a in temp.keys():
 			x = AmObj()
-			x.pts = aux[a]['pts']
-			x.alumne = aux[a]['al']
+			x.pts = temp[a]['pts']
+			x.alumne = temp[a]['al']
 			amons.append(x)
 		
 		amons = sorted(amons, key = lambda a: a.pts)

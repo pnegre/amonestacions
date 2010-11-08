@@ -6,15 +6,8 @@ from gestib.models import *
 
 import re, datetime
 
-def periodeActual():
-	now = datetime.datetime.now()
-	for x in Periode.objects.all():
-		dt1 = x.dt1
-		dt2 = x.dt2
-		if now > dt1 and now < dt2: return x
-	
-	return None
-	
+import aux
+
 
 
 class NovaAmonestacioForm(forms.Form):
@@ -57,7 +50,7 @@ class ConsultaAmonForm(forms.Form):
 		self.fields['grup'].choices = [[x.id,unicode(x)] for x in Grup.objects.all()]
 		self.fields['grup'].choices.insert(0,[-1,'TOTS'])
 		self.fields['periode'].choices = [[x.id,unicode(x)] for x in Periode.objects.all()]
-		x = periodeActual()
+		x = aux.periodeActual()
 		if x is not None:
 			self.fields['periode'].initial = x.id
 
@@ -70,7 +63,7 @@ class ConsultaAmonAlumneForm(forms.Form):
 	def __init__(self,*args,**kwrds):
 		super(ConsultaAmonAlumneForm,self).__init__(*args,**kwrds)
 		self.fields['periode'].choices = [[x.id,unicode(x)] for x in Periode.objects.all()]
-		x = periodeActual()
+		x = aux.periodeActual()
 		if x is not None:
 			self.fields['periode'].initial = x.id
 

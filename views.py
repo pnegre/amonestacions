@@ -81,6 +81,15 @@ def resumeixAmonestacions(amonList):
 
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAmon(request):
+	form = ConsultaAmonForm()
+	return render_to_response(
+			'amonestacions/consulta.html', {
+			'form': form,
+	} )
+
+
+@permission_required('amonestacions.posar_amonestacions')
+def consultaAmonPost(request):
 	if request.method == 'POST':
 		post = request.POST
 		periode = Periode.objects.get(id=post['periode'])
@@ -104,16 +113,10 @@ def consultaAmon(request):
 		amons = sorted(amons, key = lambda a: a.pts)
 		
 		return render_to_response(
-				'amonestacions/consulta.html', {
+				'amonestacions/consultaPost.html', {
 				'amons': amons,
 				'perid': periode.id,
 		} )
-	
-	form = ConsultaAmonForm()
-	return render_to_response(
-			'amonestacions/consulta.html', {
-			'form': form,
-	} )
 
 
 

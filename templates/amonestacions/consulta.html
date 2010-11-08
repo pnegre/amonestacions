@@ -8,19 +8,12 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	
-	monthnames = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Decembre']
-	daynamesshort = ['DU', 'DL', 'DM', 'DX', 'DJ', 'DV', 'DS']
-	$("input[name=data1],input[name=data2]").datepicker( { 
-		dateFormat: 'dd-mm-yy', 
-		monthNames: monthnames, 
-		dayNamesMin: daynamesshort, 
-		firstDay: 1 
-	} );
-	
-// 	$('.t1').click(function() {
-// 		$(this).next().toggle();
-// 	});
+
+	$("#doit").click(function() {
+		var data = $(this).parent().serializeArray();
+		$("#consulta").load('/amonestacions/consultagruppost/', data);
+		return false;
+	});
 
 });
 
@@ -33,18 +26,18 @@ $(document).ready(function() {
 		display: none;
 	}
 	
-/*	.t1 > td:first-child {
-		cursor: pointer;
-	}*/
 	
 	table#t1 td, table#t1 th {
 		width: auto;
-/* 		border: none; */
 	}
 	
 	table#t1 {
 		width: auto;
 		margin-bottom: 10px;
+	}
+	
+	div#consulta {
+		display: block;
 	}
 
 </style>
@@ -65,28 +58,14 @@ $(document).ready(function() {
 	{{ form.as_table }}
 	</table>
 	
-	<input type="submit">
+	<input type="submit" id="doit">
 
 	</form>
 {% endif %}
 
-{% if amons %}
-<table>
-<tr><th>Alumne</th><th>Grup</th><th>Punts restants</th></tr>
-{% for a in amons %}
+<div id="consulta">
 
-	<tr class="t1">
-	<td> <a href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
-	<td> {{ a.alumne.grup }} </td>
-	<td> {{ a.pts }} </td>
-	</tr>
-	<tr class="t2"><td colspan="2"> 
-		Tutor: {{ a.alumne.grup.tutor }} <br><br>
-		Descripció: {{ a.descripcio }} 
-	</td></tr>
+</div>
 
-{% endfor %}
-</table>
-{% endif %}
 
 {% endblock %}

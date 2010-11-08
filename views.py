@@ -104,6 +104,8 @@ def consultaAmonPost(request):
 			x = AmObj()
 			x.pts = temp[a]['pts']
 			x.alumne = temp[a]['al']
+			if int(x.pts) <= 0: x.critic = True
+			else:               x.critic = False
 			amons.append(x)
 		
 		amons = sorted(amons, key = lambda a: a.pts)

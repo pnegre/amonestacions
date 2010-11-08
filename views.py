@@ -3,7 +3,7 @@
 from datetime import datetime
 
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from django.core.mail import send_mail
 
@@ -122,11 +122,10 @@ def consultaAlumne(request):
 		s = re.search('\[(\d+)\]',request.POST['alumne'])
 		exp = s.group(1)
 		
-		amonList = Amonestacio.objects.filter(alumne__expedient=exp)
-		return render_to_response(
-				'amonestacions/consultaAlumne.html', {
-				'amonList': amonList,
-		} )	
+		alumne = Alumne.objects.get(expedient=exp)
+		periode = Periode.objects.get(id=request.POST['periode'])
+		
+		return HttpResponseRedirect('/amonestacions/veureAlumne/' + str(periode.id) + '/' + str(alumne.expedient))
 	
 	form = ConsultaAmonAlumneForm()
 	return render_to_response(

@@ -78,25 +78,5 @@ table#t1 {
 	</form>
 {% endif %}
 
-{% if amonList %}
-	<table>
-	<tr><th>Alumne</th><th>Data</th><th>Grup</th><th>Gravetat</th></tr>
-	{% for a in amonList %}
-
-		<tr class="t1">
-		<td> <a href="/amonestacions/veureAlumne/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
-		<td> {{ a.dataHora|date:"d / m / Y" }} </td>
-		<td> {{ a.alumne.grup }} </td>
-		<td> {{ a.gravetat.nom }} </td>
-		</tr>
-		<tr class="t2"><td colspan="4"> 
-			Tutor: {{ a.alumne.grup.tutor }} <br><br>
-			Descripció: {{ a.descripcio }} 
-		</td></tr>
-
-	{% endfor %}
-	</table>
-{% endif %}
-
 
 {% endblock %}

@@ -27,3 +27,14 @@ def resumeixAmonestacions(amonList):
 		else:
 			tmp[al] = {'pts': pts + a.gravetat.punts, 'al': a.alumne}
 	return tmp
+
+
+def puntsAlumnePeriode(alumne,periode):
+	amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
+	if amonList == None: return
+	
+	pts = Config.objects.all()[0].maxPoints
+	for a in amonList:
+		pts += a.gravetat.punts
+	
+	return pts

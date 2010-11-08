@@ -27,14 +27,18 @@ def novaAmon(request):
 			ok = True
 			
 			try:
+				al = form.amonestacio.alumne
+				periode = aux.periodeActual()
+				pts = aux.puntsAlumnePeriode(al,periode)
+				
 				emailTutor = InfoGrup.objects.get(grup=form.amonestacio.alumne.grup).emailTutor
 				txt = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.", 'utf-8') + "\n\n"
 				txt += unicode("L'alumne ",'utf-8') + unicode(form.amonestacio.alumne) + unicode(" Ha estat sancionat mitjançant el programa d'amonestacions ",'utf-8')
 				txt += unicode("amb una falta de tipus ",'utf-8') + unicode(form.amonestacio.gravetat.nom) + ". "
 				txt += unicode("Això comporta actualitzar el seu saldo en ",'utf-8') + unicode(form.amonestacio.gravetat.punts) + unicode(" punts.") + "\n\n"
 				txt += unicode("Professor que ha introduit la falta: ",'utf-8') + unicode(form.amonestacio.professor) + "\n\n"
-				txt += unicode("Motiu/explicació: ",'utf-8') + unicode(form.amonestacio.descripcio)
-				
+				txt += unicode("Motiu/explicació: ",'utf-8') + unicode(form.amonestacio.descripcio) + "\n\n"
+				txt += unicode("Saldo de punts en el període actiu: ",'utf-8') + unicode(pts) + "\n\n"
 				send_mail(unicode('[Nova amonestació] alumne ','utf-8') + unicode(form.amonestacio.alumne),
 					txt,
 					'amonestacions@esliceu.com',

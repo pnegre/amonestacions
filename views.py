@@ -121,15 +121,18 @@ def consultaAmonPost(request):
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAlumne(request):
 	if request.method == 'POST':
-		s = re.search('\[(\d+)\]',request.POST['alumne'])
-		exp = s.group(1)
-		
-		alumne = Alumne.objects.get(expedient=exp)
-		periode = Periode.objects.get(id=request.POST['periode'])
-		
-		return HttpResponseRedirect('/amonestacions/veureAlumne/' + str(periode.id) + '/' + str(alumne.expedient))
+		form = ConsultaAmonAlumneForm(request.POST)
+		if form.is_valid():
+			s = re.search('\[(\d+)\]',request.POST['alumne'])
+			exp = s.group(1)
+			
+			alumne = Alumne.objects.get(expedient=exp)
+			periode = Periode.objects.get(id=request.POST['periode'])
+			
+			return HttpResponseRedirect('/amonestacions/veureAlumne/' + str(periode.id) + '/' + str(alumne.expedient))
+	else:
+		form = ConsultaAmonAlumneForm()
 	
-	form = ConsultaAmonAlumneForm()
 	return render_to_response(
 			'amonestacions/consultaAlumne.html', {
 			'form': form,

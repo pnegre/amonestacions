@@ -76,6 +76,15 @@ class ConsultaAmonAlumneForm(forms.Form):
 		x = aux.periodeActual()
 		if x is not None:
 			self.fields['periode'].initial = x.id
+	
+	def clean_alumne(self):
+		data = self.cleaned_data['alumne']
+		try:
+			s = re.search('\[(\d+)\]',data)
+			exp = s.group(1)
+			return data
+		except:
+			raise forms.ValidationError("El camp alumne no té un valor correcte")
 
 
 

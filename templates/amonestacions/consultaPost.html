@@ -2,8 +2,11 @@
 
 
 {% if amons %}
-<table>
+<table id="mytable" class="tablesorter">
+<thead>
 <tr><th>Alumne</th><th>Data darrera amonestació</th><th>Grup</th><th>Saldo de Punts</th></tr>
+</thead>
+<tbody>
 {% for a in amons %}
 
 	{% if a.critic %} <tr class="t1 critic"> {% else %} <tr class="t1"> {% endif %}
@@ -18,6 +21,7 @@
 	</td></tr>
 
 {% endfor %}
+</tbody>
 </table>
 {% endif %}
 

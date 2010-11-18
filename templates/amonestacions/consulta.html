@@ -11,9 +11,14 @@ $(document).ready(function() {
 
 	$("#doit").click(function() {
 		var data = $(this).parent().serializeArray();
-		$("#consulta").load('/amonestacions/consultagruppost/', data);
+		$("#consulta").load('/amonestacions/consultagruppost/', data, function() { 
+// 			alert("ep");
+			$("#mytable").tablesorter(); 
+		} );
 		return false;
 	});
+	
+	
 
 });
 
@@ -51,7 +56,6 @@ $(document).ready(function() {
 
 
 {% block body %}
-
 
 <h1> Consulta Amonestacions </h1>
 

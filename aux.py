@@ -2,6 +2,8 @@
 
 import datetime
 
+from django.db.models import Avg, Max, Min, Count
+
 from amonestacions.models import *
 from gestib.models import *
 
@@ -38,3 +40,8 @@ def puntsAlumnePeriode(alumne,periode):
 		pts += a.gravetat.punts
 	
 	return pts
+
+
+def dataDarreraAmon(alumne):
+	dte = Amonestacio.objects.filter(alumne=alumne).aggregate(Max('dataHora'))
+	return dte['dataHora__max'].strftime('%d - %m - %Y') 

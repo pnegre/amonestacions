@@ -106,6 +106,7 @@ def consultaAmonPost(request):
 			x.alumne = temp[a]['al']
 			if int(x.pts) <= 0: x.critic = True
 			else:               x.critic = False
+			x.last = aux.dataDarreraAmon(x.alumne)
 			amons.append(x)
 		
 		amons = sorted(amons, key = lambda a: a.pts)

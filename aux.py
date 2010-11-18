@@ -44,4 +44,4 @@ def puntsAlumnePeriode(alumne,periode):
 
 def dataDarreraAmon(alumne):
 	dte = Amonestacio.objects.filter(alumne=alumne).aggregate(Max('dataHora'))
-	return dte['dataHora__max'].strftime('%d - %m - %Y') 
+	return dte['dataHora__max'].strftime('%d/%m/%Y') 

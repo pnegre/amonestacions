@@ -37,7 +37,7 @@ class NovaAmonestacioForm(forms.Form):
 		return data
 		
 	
-	def save(self):
+	def save(self,user):
 		data = self.cleaned_data
 		
 		s = re.search('\[(\d+)\]',data['alumne'])
@@ -51,6 +51,7 @@ class NovaAmonestacioForm(forms.Form):
 			alumne = alu,
 			gravetat = gra,
 			professor = prof,
+			realuser = user,
 		)
 		amonestacio.save()
 		self.amonestacio = amonestacio

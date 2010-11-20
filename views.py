@@ -23,7 +23,7 @@ def novaAmon(request):
 	if request.method == 'POST':
 		form = NovaAmonestacioForm(request.POST)
 		if form.is_valid():
-			form.save()
+			form.save(request.user)
 			ok = True
 			
 			try:

@@ -21,6 +21,7 @@ class Amonestacio(models.Model):
 	alumne = models.ForeignKey(gestib.models.Alumne)
 	professor = models.ForeignKey(gestib.models.Professor)
 	gravetat = models.ForeignKey(Gravetat)
+	realuser = models.CharField(max_length=200)
 	
 	def __unicode__(self):
 		return self.alumne.nom + ' ' + self.gravetat.nom

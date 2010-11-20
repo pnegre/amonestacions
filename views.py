@@ -104,8 +104,13 @@ def consultaAmonPost(request):
 			x = AmObj()
 			x.pts = temp[a]['pts']
 			x.alumne = temp[a]['al']
-			if int(x.pts) <= 0: x.critic = True
-			else:               x.critic = False
+			if   int(x.pts) <= 0: x.critic = "0"
+			elif int(x.pts) == 1: x.critic = "1"
+			elif int(x.pts) == 2: x.critic = "2"
+			elif int(x.pts) == 3: x.critic = "3"
+			elif int(x.pts) == 4: x.critic = "4"
+			elif int(x.pts) == 5: x.critic = "5"
+			else:                 x.critic = "6"
 			x.last = aux.dataDarreraAmon(x.alumne)
 			amons.append(x)
 		

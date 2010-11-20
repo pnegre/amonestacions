@@ -9,7 +9,13 @@
 <tbody>
 {% for a in amons %}
 
-	{% if a.critic %} <tr class="t1 critic"> {% else %} <tr class="t1"> {% endif %}
+	{% ifequal a.critic "0" %} <tr class="t1 critic0"> {% endifequal %}
+	{% ifequal a.critic "1" %} <tr class="t1 critic1"> {% endifequal %}
+	{% ifequal a.critic "2" %} <tr class="t1 critic2"> {% endifequal %}
+	{% ifequal a.critic "3" %} <tr class="t1 critic3"> {% endifequal %}
+	{% ifequal a.critic "4" %} <tr class="t1 critic4"> {% endifequal %}
+	{% ifequal a.critic "5" %} <tr class="t1 critic5"> {% endifequal %}
+	{% ifequal a.critic "6" %} <tr class="t1"> {% endifequal %}
 	<td> <a href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
 	<td> {{ a.last }} </td>
 	<td> {{ a.alumne.grup }} </td>

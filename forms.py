@@ -20,7 +20,8 @@ class NovaAmonestacioForm(forms.Form):
 		super(NovaAmonestacioForm,self).__init__(*args,**kwrds)
 		self.fields['gravetat'].choices = [[x.id,x.nom] for x in Gravetat.objects.all()]
 		self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all()]
-		self.fields['profe'].choices.insert(0,[-1,'Sel·lecciona...'])
+		self.fields['profe'].choices.insert(0,['null','Sel·lecciona...'])
+		self.fields['gravetat'].choices.insert(0,['null','Sel·lecciona...'])
 	
 	def clean_alumne(self):
 		data = self.cleaned_data['alumne']
@@ -33,7 +34,12 @@ class NovaAmonestacioForm(forms.Form):
 	
 	def clean_profe(self):
 		data = self.cleaned_data['profe']
-		if data == "-1": raise forms.ValidationError("Tria el professor")
+		if data == "null": raise forms.ValidationError("Tria el professor")
+		return data
+	
+	def clean_gravetat(self):
+		data = self.cleaned_data['gravetat']
+		if data == "null": raise forms.ValidationError("Tria la gravetat")
 		return data
 		
 	

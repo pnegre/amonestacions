@@ -16,7 +16,7 @@ class Gravetat(models.Model):
 
 class Amonestacio(models.Model):
 	descripcio = models.TextField()
-	dataHora = models.DateTimeField(auto_now_add=True)
+	dataHora = models.DateTimeField()
 	
 	alumne = models.ForeignKey(gestib.models.Alumne)
 	professor = models.ForeignKey(gestib.models.Professor)

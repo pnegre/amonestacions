@@ -11,10 +11,11 @@ import aux
 
 
 class NovaAmonestacioForm(forms.Form):
+	dta = forms.DateField(label='Data')
 	alumne = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}))
 	gravetat = forms.ChoiceField()
-	profe = forms.ChoiceField()
-	descripcio = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols': 60}))
+	profe = forms.ChoiceField(label='Professor')
+	descripcio = forms.CharField(label='Descripció',widget=forms.Textarea(attrs={'rows': 10, 'cols': 60}))
 	
 	def __init__(self,*args,**kwrds):
 		super(NovaAmonestacioForm,self).__init__(*args,**kwrds)
@@ -22,6 +23,7 @@ class NovaAmonestacioForm(forms.Form):
 		self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all()]
 		self.fields['profe'].choices.insert(0,['null','Sel·lecciona...'])
 		self.fields['gravetat'].choices.insert(0,['null','Sel·lecciona...'])
+		self.fields['dta'].input_formats = [ '%d/%m/%Y', ]
 	
 	def clean_alumne(self):
 		data = self.cleaned_data['alumne']
@@ -58,6 +60,7 @@ class NovaAmonestacioForm(forms.Form):
 			gravetat = gra,
 			professor = prof,
 			realuser = user,
+			dataHora = data['dta']
 		)
 		amonestacio.save()
 		self.amonestacio = amonestacio

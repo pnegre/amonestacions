@@ -47,7 +47,7 @@ def novaAmon(request):
 			except:
 				pass
 	else:
-		form = NovaAmonestacioForm()
+		form = NovaAmonestacioForm(initial={'dta': datetime.datetime.now().strftime('%d/%m/%Y'), })
 	
 	return render_to_response(
 		'amonestacions/novaAmon.html', {

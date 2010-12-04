@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 	(r'^consultagruppost/$', 'amonestacions.views.consultaAmonPost'),
 	(r'^consultaAlumne/$', 'amonestacions.views.consultaAlumne'),
 	(r'^stats/$', 'amonestacions.views.stats'),
+	(r'^informes/$', 'amonestacions.views.informes'),
 	
 	
 	(r'^llistaAlumnes/$', 'amonestacions.ajax.llistaAlumnes'),

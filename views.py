@@ -165,3 +165,18 @@ def stats(request):
 	} )
 
 
+@permission_required('amonestacions.posar_amonestacions')
+def informes(request):
+	if request.method == 'POST':
+		form = ConsultaInformesForm(request.POST)
+		if form.is_valid():
+			periode = form.cleaned_data['periode']
+			grup = form.cleaned_data['grup']
+			return aux.informesPdf(periode,grup)
+		
+	form = ConsultaInformesForm()
+	return render_to_response(
+			'amonestacions/informes.html', {
+				'form': form,
+	} )
+

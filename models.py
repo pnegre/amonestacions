@@ -29,6 +29,7 @@ class Amonestacio(models.Model):
 	class Meta:
 		permissions = (
 			("posar_amonestacions","Pot posar amonestacions"),
+			("informes","Pot veure informes"),
 		)
 
 

@@ -58,13 +58,11 @@ def dataDarreraAmon(alumne):
 
 ############### Per treure PDFS
 
-
+# Necessita id de període i id de grup
+# Si id de grup és "-1", agafa tots els grups
 def informesPdf(periode,grup):
 	response = HttpResponse(mimetype='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename=informe.pdf'
-	
-	grup = Grup.objects.get(id=grup)
-	periode = Periode.objects.get(id=periode)
 	
 	# Our container for 'Flowable' objects
 	elements = []
@@ -80,14 +78,40 @@ def informesPdf(periode,grup):
 	today = datetime.date.today()
 	strdate = str(today.day) + "/" + str(today.month) + "/" + str(today.year)
 	
-	par = Paragraph("<b>Es Liceu</b>. Carrer Cabana, 31. 07141, Pont d'Inca, Marratxí<br/>Telèfon: 971 60 09 86. E-MAIL: escola@esliceu.com<br/><br/>",
-		styles['Normal'])
-	elements.append(par)
+	periode = Periode.objects.get(id=periode)
+	amonList = Amonestacio.objects.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
+	if grup != "-1":
+		grup = Grup.objects.get(id=grup)
+		amonList = amonList.filter(alumne__grup=grup)
 	
+	alumnes = set( [ a.alumne for a in amonList ] )
 	
-	amonList = Amonestacio.objects.filter(alumne__grup=grup).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
-	temp = resumeixAmonestacions(amonList)	
-	
+	for al in alumnes:
+		par = Paragraph("<b>Es Liceu</b>. Carrer Cabana, 31. 07141, Pont d'Inca, Marratxí<br/>Telèfon: 971 60 09 86. E-MAIL: escola@esliceu.com<br/><br/>",
+			styles['Normal'])
+		elements.append(par)
+		elements.append(Paragraph(unicode(periode.descripcio), styles['Normal']))
+		
+		elements.append(Paragraph(unicode(al), styles['Heading1']))
+		
+		elements.append(Paragraph("Data: " + strdate, styles['Normal']))
+		elements.append(Paragraph("Curs: " + unicode(al.grup), styles['Normal']))
+		elements.append(Paragraph("Tutor/a: " + unicode(al.grup.tutor) + "<br/>", styles['Normal']))
+		
+		elements.append(Paragraph(u"Informe d'incidències", styles['Heading2']))
+		
+		amons = Amonestacio.objects.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).filter(alumne=al)
+		for a in amons:
+			elements.append(Paragraph(u"<b>Data:</b> " + a.dataHora.strftime('%d/%m/%Y') + u'<br/>', styles['Normal']))
+			elements.append(Paragraph(u"<b>Professor:</b> " + unicode(a.professor) + u'<br/>', styles['Normal']))
+			elements.append(Paragraph(u"<b>Tipus d'incidència:</b> " + unicode(a.gravetat) + u'<br/>', styles['Normal']))
+			elements.append(Paragraph(u"<b>Descripció:</b> " + a.descripcio + u'<br/><br/>', styles['Normal']))
+		
+		totalpunts = puntsAlumnePeriode(al,periode)
+		
+		elements.append(Paragraph(u"Total punts restants: " + unicode(totalpunts) + u'<br/><br/>', styles['Heading3']))
+		
+		elements.append(PageBreak()) 
 	
 	doc.build(elements)
 	return response

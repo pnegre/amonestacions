@@ -165,7 +165,7 @@ def stats(request):
 	} )
 
 
-@permission_required('amonestacions.posar_amonestacions')
+@permission_required('amonestacions.informes')
 def informes(request):
 	if request.method == 'POST':
 		form = ConsultaInformesForm(request.POST)

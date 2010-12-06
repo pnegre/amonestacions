@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from django.core.mail import send_mail
+from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -14,6 +15,10 @@ from amonestacions.models import *
 from gestib.models import *
 
 import aux
+
+
+def renderResponse(request,tmpl,dic):
+	return render_to_response(tmpl,dic, context_instance=RequestContext(request))
 
 
 
@@ -49,7 +54,8 @@ def novaAmon(request):
 	else:
 		form = NovaAmonestacioForm(initial={'dta': datetime.datetime.now().strftime('%d/%m/%Y'), })
 	
-	return render_to_response(
+	return renderResponse(
+		request,
 		'amonestacions/novaAmon.html', {
 			'ok': ok,
 			'form': form,
@@ -65,7 +71,8 @@ def veureAlumne(request,perid,alumne_exp):
 	pts = Config.objects.all()[0].maxPoints
 	for a in amonList:
 		pts += a.gravetat.punts
-	return render_to_response(
+	return renderResponse(
+		request,
 		'amonestacions/alumne.html', {
 			'alumne': alumne,
 			'amonList': amonList,
@@ -78,7 +85,8 @@ def veureAlumne(request,perid,alumne_exp):
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAmon(request):
 	form = ConsultaAmonForm()
-	return render_to_response(
+	return renderResponse(
+			request,
 			'amonestacions/consulta.html', {
 			'form': form,
 	} )
@@ -116,7 +124,8 @@ def consultaAmonPost(request):
 		
 		amons = sorted(amons, key = lambda a: a.pts)
 		
-		return render_to_response(
+		return renderResponse(
+				request,
 				'amonestacions/consultaPost.html', {
 				'amons': amons,
 				'perid': periode.id,
@@ -139,7 +148,8 @@ def consultaAlumne(request):
 	else:
 		form = ConsultaAmonAlumneForm()
 	
-	return render_to_response(
+	return renderResponse(
+			request,
 			'amonestacions/consultaAlumne.html', {
 			'form': form,
 	} )
@@ -159,7 +169,8 @@ def stats(request):
 		e.faltes = len(amons)
 		sts.append(e)
 		
-	return render_to_response(
+	return renderResponse(
+			request,
 			'amonestacions/stats.html', {
 				'sts': sts,
 	} )
@@ -175,7 +186,8 @@ def informes(request):
 			return aux.informesPdf(periode,grup)
 		
 	form = ConsultaInformesForm()
-	return render_to_response(
+	return renderResponse(
+			request,
 			'amonestacions/informes.html', {
 				'form': form,
 	} )

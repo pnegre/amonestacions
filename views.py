@@ -18,7 +18,7 @@ import aux
 
 
 def renderResponse(request,tmpl,dic):
-	return render_to_response(tmpl,dic, context_instance=RequestContext(request))
+	return render_to_response(tmpl, dic, context_instance=RequestContext(request))
 
 
 

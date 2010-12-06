@@ -86,7 +86,7 @@ def informesPdf(periode,grup):
 	
 	alumnes = set( [ a.alumne for a in amonList ] )
 	
-	for al in alumnes:
+	for al in sorted(alumnes, key = lambda a: unicode(a)):
 		par = Paragraph("<b>Es Liceu</b>. Carrer Cabana, 31. 07141, Pont d'Inca, Marratxí<br/>Telèfon: 971 60 09 86. E-MAIL: escola@esliceu.com<br/><br/>",
 			styles['Normal'])
 		elements.append(par)

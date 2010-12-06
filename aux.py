@@ -61,7 +61,10 @@ def dataDarreraAmon(alumne):
 
 def informesPdf(periode,grup):
 	response = HttpResponse(mimetype='application/pdf')
-	response['Content-Disposition'] = 'attachment; filename=butlletins_' + str(grup) + '.pdf'
+	response['Content-Disposition'] = 'attachment; filename=informe.pdf'
+	
+	grup = Grup.objects.get(id=grup)
+	periode = Periode.objects.get(id=periode)
 	
 	# Our container for 'Flowable' objects
 	elements = []
@@ -71,7 +74,7 @@ def informesPdf(periode,grup):
 	
 	# A basic document for us to write to 'rl_hello_platypus.pdf'
 	doc = SimpleDocTemplate(response, leftMargin=25, rightMargin=25, topMargin=25, bottomMargin=25)
-	doc.pagesize = landscape(A4)
+	doc.pagesize = portrait(A4)
 	
 	styles['Normal'].fontsize=8
 	today = datetime.date.today()
@@ -80,6 +83,11 @@ def informesPdf(periode,grup):
 	par = Paragraph("<b>Es Liceu</b>. Carrer Cabana, 31. 07141, Pont d'Inca, Marratxí<br/>Telèfon: 971 60 09 86. E-MAIL: escola@esliceu.com<br/><br/>",
 		styles['Normal'])
 	elements.append(par)
+	
+	
+	amonList = Amonestacio.objects.filter(alumne__grup=grup).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
+	temp = resumeixAmonestacions(amonList)	
+	
 	
 	doc.build(elements)
 	return response

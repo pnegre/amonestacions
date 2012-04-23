@@ -1,13 +1,14 @@
-<html>
+{% extends "hub/menu_base.html" %}
 
-<head>
+{% block baseheader %}
 
 <LINK REL="StyleSheet" HREF="/static/amonestacions/estils.css" TYPE="text/css" MEDIA="screen">
 
 <title>Amonestacions</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 
 <link type="text/css" href="/static/amonestacions/jquery-css/jquery.ui.all.css" rel="stylesheet" />	
+
 <script type="text/javascript" src="/static/amonestacions/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/static/amonestacions/js/jquery-ui-1.8.custom.min.js"></script>
 <script type="text/javascript" src="/static/amonestacions/jquery.tablesorter.min.js"></script>
@@ -44,16 +45,15 @@ a:hover, a:visited, a:active {
 
 </style>
 
-
 {% block header %}
 
 {% endblock %}
 
-</head>
 
-<body>
-	
-{% include "hub/menu_iframe.html" %}
+{% endblock %}
+
+
+{% block basebody %}
 
 <div id="topmenu">
 
@@ -65,13 +65,6 @@ a:hover, a:visited, a:active {
 	|| <a href="/amonestacions/informes/">Informes PDF</a> 
 {% endif %}
 
-
-
-<!-- <a href="/amonestacions/stats/">Estadístiques</a> -->
-
-
-
-
 </div>
 
 <div>
@@ -82,7 +75,4 @@ a:hover, a:visited, a:active {
 
 </div>
 
-
-</body>
-
-</html>
+{% endblock %}

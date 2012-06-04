@@ -20,7 +20,7 @@ class NovaAmonestacioForm(forms.Form):
 	def __init__(self,*args,**kwrds):
 		super(NovaAmonestacioForm,self).__init__(*args,**kwrds)
 		self.fields['gravetat'].choices = [[x.id,x.nom] for x in Gravetat.objects.all()]
-		self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all()]
+		self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all().order_by('llinatge1')]
 		self.fields['profe'].choices.insert(0,['null','Sel·lecciona...'])
 		self.fields['gravetat'].choices.insert(0,['null','Sel·lecciona...'])
 		self.fields['dta'].input_formats = [ '%d/%m/%Y', ]

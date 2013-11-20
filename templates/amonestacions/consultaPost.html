@@ -2,11 +2,28 @@
 
 
 {% if amons %}
+
+<script type="text/javascript">
+
+    $(".aabb").click(function() {
+        var link = $(this).attr('href');
+        $("#consulta2").load(link);
+        return false;
+
+
+    });
+
+</script>
+
+
+<div id="consulta2">
+
 <table id="mytable" class="tablesorter">
 <thead>
 <tr><th>Alumne</th><th>Data darrera amonestació</th><th>Grup</th><th>Saldo de Punts</th></tr>
 </thead>
 <tbody>
+
 {% for a in amons %}
 
 	{% ifequal a.critic "0" %} <tr class="t1 critic0"> {% endifequal %}
@@ -16,7 +33,7 @@
 	{% ifequal a.critic "4" %} <tr class="t1 critic4"> {% endifequal %}
 	{% ifequal a.critic "5" %} <tr class="t1 critic5"> {% endifequal %}
 	{% ifequal a.critic "6" %} <tr class="t1"> {% endifequal %}
-	<td> <a href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
+	<td> <a class="aabb" href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
 	<td> {{ a.last }} </td>
 	<td> {{ a.alumne.grup }} </td>
 	<td> {{ a.pts }} </td>
@@ -29,5 +46,9 @@
 {% endfor %}
 </tbody>
 </table>
+
+</div>
+
+
 {% endif %}
 

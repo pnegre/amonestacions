@@ -1,37 +1,6 @@
 
-
-
-{% extends "amonestacions/base.html" %}
-
-{% block header %}
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-});
-
-
-</script>
-
-<style type="text/css">
-
-td.dscr {
-	background-color: #EEE;
-	padding: 10px;
-}
-
-</style>
-
-
-{% endblock %}
-
-
-{% block body %}
-
-
-<h1> Alumne {{ alumne }}</h1>
-<h2> Saldo de punts: {{ punts }} </h2>
+<h2> {{ alumne }}</h2>
+<h3> Saldo de punts: {{ punts }} </h3>
 
 <table>
 <tr><th> Falta </th> <th> Data </th> <th> Professor </th> <th> Punts </th></tr>
@@ -51,5 +20,3 @@ td.dscr {
 </table>
 
 
-
-{% endblock %}

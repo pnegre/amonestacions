@@ -30,7 +30,6 @@ $(document).ready(function() {
 	$("#doit").click(function() {
 		var data = $(this).parent().serializeArray();
 		$("#consulta").load('/amonestacions/consultagruppost/', data, function() { 
-// 			alert("ep");
 			$("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } }); 
 		} );
 		return false;

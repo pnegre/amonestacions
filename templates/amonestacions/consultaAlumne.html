@@ -17,7 +17,27 @@ $(document).ready(function() {
 	};
 	var as = new bsn.AutoSuggest('id_alumne', options);
 	
-	$("input:submit").button();
+	//$("input:submit").button();
+
+    $("input:submit").click(function() {
+        var data = $(this).parent().serializeArray();
+//        var realData = { };
+//        data.forEach(function(entry) {
+//            n = entry['name'];
+//            v = entry['value'];
+//            realData[n] = v;
+//            console.log(n);
+//            console.log(v);
+//        });
+//        var url = "/amonestacions/veurealumne/" + periode + "/" + exp
+//        alert(realData['alumne']);
+        $("#dadesalumne").load("/amonestacions/consultaAlumne/", data);
+        return false;
+        
+    });
+
+
+
 
 
 });
@@ -86,5 +106,7 @@ table#t1 ul {
 	</form>
 {% endif %}
 
+<div id="dadesalumne">
+</div>
 
 {% endblock %}

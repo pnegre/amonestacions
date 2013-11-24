@@ -21,7 +21,7 @@ def renderResponse(request,tmpl,dic):
 
 
 
-txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu." + 
+txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.\n\n" + 
         "L'alumne %s ha estat sancionat mitjançant el programa d'amonestacions " +
         "amb una falta de tipus %s\n\n" + "Això comporta actualitzar el seu saldo en %s punts\n\n" +
         "Professor que ha introduit la falta: %s\n\n" +

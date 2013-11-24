@@ -21,6 +21,12 @@ def renderResponse(request,tmpl,dic):
 
 
 
+txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu." + 
+        "L'alumne %s ha estat sancionat mitjançant el programa d'amonestacions " +
+        "amb una falta de tipus %s\n\n" + "Això comporta actualitzar el seu saldo en %s punts\n\n" +
+        "Professor que ha introduit la falta: %s\n\n" +
+        "Motiu/explicació: %s\n\n" +
+        "Saldo de punts en el període actiu: %s\n\n", 'utf-8')
 @permission_required('amonestacions.posar_amonestacions')
 def novaAmon(request):
     ok = False
@@ -36,19 +42,20 @@ def novaAmon(request):
                 pts = aux.puntsAlumnePeriode(al,periode)
                 
                 emailTutor = InfoGrup.objects.get(grup=form.amonestacio.alumne.grup).emailTutor
-                txt = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.", 'utf-8') + "\n\n"
-                txt += unicode("L'alumne ",'utf-8') + unicode(form.amonestacio.alumne) + unicode(" Ha estat sancionat mitjançant el programa d'amonestacions ",'utf-8')
-                txt += unicode("amb una falta de tipus ",'utf-8') + unicode(form.amonestacio.gravetat.nom) + ". "
-                txt += unicode("Això comporta actualitzar el seu saldo en ",'utf-8') + unicode(form.amonestacio.gravetat.punts) + unicode(" punts.") + "\n\n"
-                txt += unicode("Professor que ha introduit la falta: ",'utf-8') + unicode(form.amonestacio.professor) + "\n\n"
-                txt += unicode("Motiu/explicació: ",'utf-8') + unicode(form.amonestacio.descripcio) + "\n\n"
-                txt += unicode("Saldo de punts en el període actiu: ",'utf-8') + unicode(pts) + "\n\n"
+                txt = txtEmail % ( unicode(form.amonestacio.alumne),
+                        unicode(form.amonestacio.gravetat.nom),
+                        unicode(form.amonestacio.gravetat.punts),
+                        unicode(form.amonestacio.professor),
+                        unicode(form.amonestacio.descripcio),
+                        unicode(pts)
+                )
                 send_mail(unicode('[Nova amonestació] alumne ','utf-8') + unicode(form.amonestacio.alumne),
                     txt,
                     'amonestacions@esliceu.com',
                     [emailTutor], fail_silently=False)
             
-            except:
+            except Exception as e:
+                # dins type(e) hi ha el tipus...
                 pass
     else:
         form = NovaAmonestacioForm(initial={'dta': datetime.datetime.now().strftime('%d/%m/%Y'), })

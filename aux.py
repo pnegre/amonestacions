@@ -28,7 +28,6 @@ def periodeActual():
 def resumeixAmonestacions(amonList):
     tmp = {}
     maxPoints = Config.objects.all()[0].maxPoints
-    pts = maxPoints
     for a in amonList:
         al = unicode(a.alumne)
         if al in tmp.keys():
@@ -37,7 +36,7 @@ def resumeixAmonestacions(amonList):
             else:
                 tmp[al]['pts'] += a.gravetat.punts
         else:
-            tmp[al] = {'pts': pts + a.gravetat.punts, 'al': a.alumne}
+            tmp[al] = {'pts': maxPoints + a.gravetat.punts, 'al': a.alumne}
     return tmp
 
 
@@ -45,8 +44,6 @@ def puntsAlumnePeriode(alumne,periode):
     amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
     if amonList == None: return
     
-    print amonList
-
     maxPoints = Config.objects.all()[0].maxPoints
     pts = maxPoints
     for a in amonList:

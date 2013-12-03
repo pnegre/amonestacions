@@ -25,14 +25,17 @@ def periodeActual():
     return None
 
 
-
 def resumeixAmonestacions(amonList):
     tmp = {}
-    pts = Config.objects.all()[0].maxPoints
+    maxPoints = Config.objects.all()[0].maxPoints
+    pts = maxPoints
     for a in amonList:
         al = unicode(a.alumne)
         if al in tmp.keys():
-            tmp[al]['pts'] += a.gravetat.punts
+            if a.gravetat.punts == 0:
+                tmp[al]['pts'] = maxPoints
+            else:
+                tmp[al]['pts'] += a.gravetat.punts
         else:
             tmp[al] = {'pts': pts + a.gravetat.punts, 'al': a.alumne}
     return tmp

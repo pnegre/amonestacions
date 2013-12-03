@@ -107,7 +107,7 @@ def consultaAmonPost(request):
         else:
             amonList = Amonestacio.objects.all()
         
-        amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
+        amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
         
         class AmObj: pass
         amons = []

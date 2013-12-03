@@ -74,9 +74,7 @@ def veureAlumne(request,perid,alumne_exp):
     alumne = Alumne.objects.get(expedient=alumne_exp)
     periode = Periode.objects.get(id=perid)
     amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
-    pts = Config.objects.all()[0].maxPoints
-    for a in amonList:
-        pts += a.gravetat.punts
+    pts = aux.puntsAlumnePeriode(alumne,periode)
     return renderResponse(
         request,
         'amonestacions/alumne.html', {

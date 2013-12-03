@@ -73,7 +73,7 @@ def novaAmon(request):
 def veureAlumne(request,perid,alumne_exp):
     alumne = Alumne.objects.get(expedient=alumne_exp)
     periode = Periode.objects.get(id=perid)
-    amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2)
+    amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('-dataHora')
     pts = aux.puntsAlumnePeriode(alumne,periode)
     return renderResponse(
         request,

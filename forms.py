@@ -63,13 +63,16 @@ class NovaAmonestacioForm(forms.Form):
         gra = Gravetat.objects.filter(id=data['gravetat'])[0]
         alu = Alumne.objects.filter(expedient=exp)[0]
         prof = Professor.objects.filter(codi=data['profe'])[0]
+        dHora = datetime.datetime.fromordinal(data['dta'].toordinal()) + \
+                datetime.timedelta(hours=hours,minutes=mins)
+
         amonestacio = Amonestacio(
             descripcio = data['descripcio'],
             alumne = alu,
             gravetat = gra,
             professor = prof,
             realuser = user,
-            dataHora = datetime.datetime.fromordinal(data['dta'].toordinal()) + datetime.timedelta(hours=hours,minutes=mins)
+            dataHora = dHora,
         )
         amonestacio.save()
         self.amonestacio = amonestacio

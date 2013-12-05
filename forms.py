@@ -12,7 +12,7 @@ import aux
 
 class NovaAmonestacioForm(forms.Form):
     dta = forms.DateField(label='Data')
-    hora = forms.CharField(label='Hora',initial='00:00')
+    hora = forms.CharField(label='Hora')
     alumne = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}))
     gravetat = forms.ChoiceField()
     profe = forms.ChoiceField(label='Professor')
@@ -25,7 +25,8 @@ class NovaAmonestacioForm(forms.Form):
         self.fields['profe'].choices.insert(0,['null','Sel·lecciona...'])
         self.fields['gravetat'].choices.insert(0,['null','Sel·lecciona...'])
         self.fields['dta'].input_formats = [ '%d/%m/%Y', ]
-        #self.fields['hora'].input_formats = [ '', ]
+        now = datetime.datetime.now()
+        self.fields['hora'].initial = now.strftime('%H:%M')
     
     def clean_alumne(self):
         data = self.cleaned_data['alumne']

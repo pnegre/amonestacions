@@ -19,7 +19,8 @@ $(document).ready(function() {
 	
 	$("input:submit").button();
 	
-	monthnames = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
+    monthnames = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny',
+        'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
 	daynamesshort = ['DU', 'DL', 'DM', 'DX', 'DJ', 'DV', 'DS']
 	$("input[name=dta]").datepicker( { 
 		dateFormat: 'dd/mm/yy', 
@@ -28,6 +29,7 @@ $(document).ready(function() {
 		firstDay: 1,
     } );
 
+    $("input[name=hora]").timepicker({ 'timeFormat': 'H:i' });
 
 });
 

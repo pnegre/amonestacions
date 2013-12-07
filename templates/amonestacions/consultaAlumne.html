@@ -8,36 +8,20 @@
 
 $(document).ready(function() {
 
-	var options = {
-		script: "/amonestacions/llistaAlumnes/?",
-		varname: "l1",
-		json: true,
-		maxresults: 35
-	};
-	var as = new bsn.AutoSuggest('id_alumne', options);
-	
-	//$("input:submit").button();
+    var options = {
+        script: "/amonestacions/llistaAlumnes/?",
+        varname: "l1",
+        json: true,
+        maxresults: 35
+    };
+    var as = new bsn.AutoSuggest('id_alumne', options);
 
     $("input:submit").click(function() {
         var data = $(this).parent().serializeArray();
-//        var realData = { };
-//        data.forEach(function(entry) {
-//            n = entry['name'];
-//            v = entry['value'];
-//            realData[n] = v;
-//            console.log(n);
-//            console.log(v);
-//        });
-//        var url = "/amonestacions/veurealumne/" + periode + "/" + exp
-//        alert(realData['alumne']);
         $("#dadesalumne").load("/amonestacions/consultaAlumne/", data);
         return false;
         
     });
-
-
-
-
 
 });
 
@@ -49,35 +33,35 @@ $(document).ready(function() {
 
 div.autosuggest
 {
-	position: absolute;
-	padding: 10px 0 0 0;
-	background-color: #EEE;
+    position: absolute;
+    padding: 10px 0 0 0;
+    background-color: #EEE;
 }
 
 div.autosuggest ul {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 div.autosuggest ul {
-	padding: 0px;
-	margin: 0px;
-	font-size: 12px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
 }
 
 table#t1 td, table#t1 th {
-	width: auto;
+    width: auto;
 }
 
 table#t1 {
-	width: auto;
-	margin-bottom: 10px;
+    width: auto;
+    margin-bottom: 10px;
 }
 
 table#t1 ul {
-	color: red;
-	margin: 0px;
-	padding: 0px;
-	list-style-type:none;
+    color: red;
+    margin: 0px;
+    padding: 0px;
+    list-style-type:none;
 }
 
 
@@ -91,18 +75,18 @@ table#t1 ul {
 <h1> Consulta per alumne </h1>
 
 {% if form %}
-	<form method="post">
+    <form method="post">
 
-	<table id="t1">
+    <table id="t1">
 
-	{{ form.as_table }}
+    {{ form.as_table }}
 
-	</table>
-	<br>
+    </table>
+    <br>
 
-	<input type="submit">
+    <input type="submit">
 
-	</form>
+    </form>
 {% endif %}
 
 <div id="dadesalumne">

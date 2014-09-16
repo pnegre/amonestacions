@@ -16,17 +16,23 @@ from gestib.models import *
 
 import aux
 
-def renderResponse(request,tmpl,dic):
-    return render_to_response(tmpl, dic, context_instance=RequestContext(request))
-
-
-
 txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.\n\n" + 
         "L'alumne %s ha estat sancionat mitjançant el programa d'amonestacions " +
         "amb una falta de tipus %s\n\n" + "Això comporta actualitzar el seu saldo en %s punts\n\n" +
         "Professor que ha introduit la falta: %s\n\n" +
         "Motiu/explicació: %s\n\n" +
         "Saldo de punts en el període actiu: %s\n\n", 'utf-8')
+
+
+# Quan treiem les pàgines amb RequestContext, fem visibles a la template
+# algunes variables que no estarien disponibles.
+# Les altres funcions cridaran a aquesta en haver de fer el render de les templates
+def renderResponse(request,tmpl,dic):
+    return render_to_response(tmpl, dic, context_instance=RequestContext(request))
+
+
+# Nova amonestació.
+# Envia un email al tutor, si aquest està definit al camp "emailTutor" del grup
 @permission_required('amonestacions.posar_amonestacions')
 def novaAmon(request):
     ok = False
@@ -69,6 +75,9 @@ def novaAmon(request):
 
 
 
+# Mostra les amonestacions d'un alumne. Accepta com a paràmetres
+# el núm. d'expedient de l'alumne i el període considerat
+# Treu la informació perquè es pugui carregar en AJAX a un div
 @permission_required('amonestacions.posar_amonestacions')
 def veureAlumne(request,perid,alumne_exp):
     alumne = Alumne.objects.get(expedient=alumne_exp)
@@ -85,7 +94,8 @@ def veureAlumne(request,perid,alumne_exp):
 
 
 
-
+# Vista molt simple que es limita a mostrar el form de la consulta d'amonestacions
+# Per javascript, la funció mostra per ajax la llista i els detalls de cada alumne, si es demanen
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAmon(request):
     form = ConsultaAmonForm()

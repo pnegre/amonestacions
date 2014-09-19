@@ -12,19 +12,19 @@ $(document).ready(function() {
 		script: "/amonestacions/llistaAlumnes/?",
 		varname: "l1",
 		json: true,
-		maxresults: 35
+		maxresults: 15
 	};
 	var as = new bsn.AutoSuggest('id_alumne', options);
-	
+
 	$("input:submit").button();
-	
+
     monthnames = ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny',
         'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre']
 	daynamesshort = ['DU', 'DL', 'DM', 'DX', 'DJ', 'DV', 'DS']
-	$("input[name=dta]").datepicker( { 
-		dateFormat: 'dd/mm/yy', 
-		monthNames: monthnames, 
-		dayNamesMin: daynamesshort, 
+	$("input[name=dta]").datepicker( {
+		dateFormat: 'dd/mm/yy',
+		monthNames: monthnames,
+		dayNamesMin: daynamesshort,
 		firstDay: 1,
     } );
 

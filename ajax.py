@@ -18,3 +18,19 @@ def llistaAlumnes(request):
 	for a in als ]
 
 	return HttpResponse(simplejson.dumps({ 'results': res }), mimetype='application/json')
+
+
+@permission_required('amonestacions.posar_amonestacions')
+def anys(request):
+	annys = Any.objects.all()
+	res = [ [a.id, str(a) ] for a in annys ]
+	return HttpResponse(simplejson.dumps(res), mimetype='application/json')
+
+
+@permission_required('amonestacions.posar_amonestacions')
+def avaluacions(request):
+	aid = request.GET.get('any')
+	anny = Any.objects.get(id=aid)
+	avs = Avaluacio.objects.filter(anny=anny)
+	res = [ [a.id, str(a) ] for a in avs ]
+	return HttpResponse(simplejson.dumps(res), mimetype='application/json')

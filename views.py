@@ -96,28 +96,39 @@ def veureAlumne(request,perid,alumne_exp):
 
 # Vista molt simple que es limita a mostrar el form de la consulta d'amonestacions
 # Per javascript, la funció mostra per ajax la llista i els detalls de cada alumne, si es demanen
+# @permission_required('amonestacions.posar_amonestacions')
+# def consultaAmon(request):
+#     form = ConsultaAmonForm()
+#     return renderResponse(
+#             request,
+#             'amonestacions/consulta.html', {
+#             'form': form,
+#     } )
+
+
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAmon(request):
-    form = ConsultaAmonForm()
     return renderResponse(
-            request,
-            'amonestacions/consulta.html', {
-            'form': form,
-    } )
+        request,
+        'amonestacions/consulta2.html',
+        { }
+    )
 
 
 @permission_required('amonestacions.posar_amonestacions')
 def consultaAmonPost(request):
     if request.method == 'POST':
         post = request.POST
-        periode = Periode.objects.get(id=post['periode'])
-        if post['grup'] != '-1':
-            grup = Grup.objects.get(id=post['grup'])
-            amonList = Amonestacio.objects.filter(alumne__grup=grup)
-        else:
-            amonList = Amonestacio.objects.all()
+        # periode = Periode.objects.get(id=post['periode'])
+        # if post['grup'] != '-1':
+        #     grup = Grup.objects.get(id=post['grup'])
+        #     amonList = Amonestacio.objects.filter(alumne__grup=grup)
+        # else:
+        #     amonList = Amonestacio.objects.all()
+        #
+        # amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
 
-        amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
+        amonList= Amonestacio.objects.all()
 
         class AmObj: pass
         amons = []
@@ -142,7 +153,7 @@ def consultaAmonPost(request):
                 request,
                 'amonestacions/consultaPost.html', {
                 'amons': amons,
-                'perid': periode.id,
+                # 'perid': periode.id,
         } )
 
 

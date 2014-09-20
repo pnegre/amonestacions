@@ -1,0 +1,127 @@
+
+
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	$.get("/amonestacions/anys/", function(data) {
+		for(i=0; i<data.length; i++) {
+			$("#any").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+		}
+		$("#any").change();
+	});
+
+	$("#any").change( function() {
+		var n = $(this).val();
+		$.get("/amonestacions/avaluacions/?", { any: n }, function(data) {
+			$("#av").text("");
+			for (i=0; i<data.length; i++) {
+				$("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+			}
+		});
+	});
+
+	$("#envia").click( function() {
+		// alert("ee");
+		var data = $("#formConsulta1").serializeArray();
+		$("#results").load('/amonestacions/consultagruppost/', data, function() {
+			// $("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });
+		} );
+		return false;
+	});
+
+});
+
+
+</script>
+
+<style type="text/css">
+
+.t2 {
+	display: none;
+}
+
+table#t1 td, table#t1 th {
+	width: auto;
+}
+
+table#t1 {
+	width: auto;
+	margin-bottom: 10px;
+}
+
+div#results {
+	display: block;
+}
+
+tr.critic0 {
+	background-color: #e56249;
+}
+
+tr.critic1 {
+	background-color: #d77049;
+}
+
+tr.critic2 {
+	background-color: #ca7d49;
+}
+
+tr.critic3 {
+	background-color: #be8949;
+}
+
+tr.critic4 {
+	background-color: #b19649;
+}
+
+tr.critic5 {
+	background-color: #a4a455;
+}
+
+tr.critic6 {
+	background-color: #96b155;
+}
+
+
+</style>
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1> Consulta Amonestacions </h1>
+
+<form id="formConsulta1">
+	<table border="1">
+		<tr>
+			<td>
+				Any acadèmic:
+				<select id="any">
+				</select>
+			</td>
+
+			<td>
+				Avaluació:
+				<select id="av">
+				</select>
+			</td>
+
+			<td>
+				<input type="submit" id="envia">
+			</td>
+		</tr>
+	</table>
+</form>
+
+<div id="results">
+</div>
+
+
+{% endblock %}

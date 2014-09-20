@@ -16,7 +16,7 @@ from gestib.models import *
 
 import aux
 
-txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.\n\n" + 
+txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.\n\n" +
         "L'alumne %s ha estat sancionat mitjançant el programa d'amonestacions " +
         "amb una falta de tipus %s\n\n" + "Això comporta actualitzar el seu saldo en %s punts\n\n" +
         "Professor que ha introduit la falta: %s\n\n" +
@@ -41,12 +41,12 @@ def novaAmon(request):
         if form.is_valid():
             form.save(request.user)
             ok = True
-            
+
             try:
                 al = form.amonestacio.alumne
                 periode = aux.periodeActual()
                 pts = aux.puntsAlumnePeriode(al,periode)
-                
+
                 emailTutor = InfoGrup.objects.get(grup=form.amonestacio.alumne.grup).emailTutor
                 txt = txtEmail % ( unicode(form.amonestacio.alumne),
                         unicode(form.amonestacio.gravetat.nom),
@@ -59,13 +59,13 @@ def novaAmon(request):
                     txt,
                     'amonestacions@esliceu.com',
                     [emailTutor], fail_silently=False)
-            
+
             except Exception as e:
                 # dins type(e) hi ha el tipus...
                 pass
     else:
         form = NovaAmonestacioForm(initial={'dta': datetime.datetime.now().strftime('%d/%m/%Y'), })
-    
+
     return renderResponse(
         request,
         'amonestacions/novaAmon.html', {
@@ -116,9 +116,9 @@ def consultaAmonPost(request):
             amonList = Amonestacio.objects.filter(alumne__grup=grup)
         else:
             amonList = Amonestacio.objects.all()
-        
+
         amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
-        
+
         class AmObj: pass
         amons = []
         temp = aux.resumeixAmonestacions(amonList)
@@ -135,9 +135,9 @@ def consultaAmonPost(request):
             else:                 x.critic = "6"
             x.last = aux.dataDarreraAmon(x.alumne)
             amons.append(x)
-        
+
         amons = sorted(amons, key = lambda a: a.pts)
-        
+
         return renderResponse(
                 request,
                 'amonestacions/consultaPost.html', {
@@ -154,16 +154,16 @@ def consultaAlumne(request):
         if form.is_valid():
             s = re.search('\[(\d+)\]',request.POST['alumne'])
             exp = s.group(1)
-            
+
             alumne = Alumne.objects.get(expedient=exp)
             periode = Periode.objects.get(id=request.POST['periode'])
-            
+
             return HttpResponseRedirect('/amonestacions/veureAlumne/' + str(periode.id) + '/' + str(alumne.expedient))
         else:
             return HttpResponse("")
     else:
         form = ConsultaAmonAlumneForm()
-    
+
     return renderResponse(
             request,
             'amonestacions/consultaAlumne.html', {
@@ -172,19 +172,19 @@ def consultaAlumne(request):
 
 @permission_required('amonestacions.posar_amonestacions')
 def stats(request):
-    class EstObj: 
+    class EstObj:
         pass
-    
+
     sts = []
     grups = Grup.objects.all()
-    
+
     for g in grups:
         e = EstObj()
         e.nomGrup = unicode(g)
         amons = Amonestacio.objects.filter(alumne__grup=g)
         e.faltes = len(amons)
         sts.append(e)
-        
+
     return renderResponse(
             request,
             'amonestacions/stats.html', {
@@ -200,11 +200,10 @@ def informes(request):
             periode = form.cleaned_data['periode']
             grup = form.cleaned_data['grup']
             return aux.informesPdf(periode,grup)
-        
+
     form = ConsultaInformesForm()
     return renderResponse(
             request,
             'amonestacions/informes.html', {
                 'form': form,
     } )
-

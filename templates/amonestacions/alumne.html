@@ -6,7 +6,7 @@
 <tr><th> Falta </th> <th> Data </th> <th> Professor </th> <th> Punts </th></tr>
 {% for a in amonList %}
 
-<tr> 
+<tr>
 	<td> {{a.gravetat.nom }} </td>
 	<td> {{ a.dataHora|date:"d / m / Y" }} </td>
 	<td> {{ a.professor }} </td>
@@ -18,5 +18,3 @@
 
 {% endfor %}
 </table>
-
-

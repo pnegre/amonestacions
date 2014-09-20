@@ -8,13 +8,14 @@
 
 $(document).ready(function() {
 
-	var options = {
-		script: "/amonestacions/llistaAlumnes/?",
-		varname: "l1",
-		json: true,
-		maxresults: 15
-	};
-	var as = new bsn.AutoSuggest('id_alumne', options);
+	$("#id_alumne").autocomplete( {
+		source: function(request, response) {
+			$.get("/amonestacions/llistaAlumnes/", { l1: $("#id_alumne").val() }, function(data) {
+				response(data.results);
+			});
+		}
+
+	});
 
 	$("input:submit").button();
 

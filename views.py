@@ -128,7 +128,22 @@ def consultaAmonPost(request):
         #
         # amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
 
+        idany = post['any']
+        print idany
+        anny = Any.objects.get(id=idany)
+        print anny
+
+
         amonList= Amonestacio.objects.all()
+        idav = post['av']
+        if idav == '-1':
+            # TODO: Totes les amonestacions d'un curs
+            pass
+        else:
+            av = Avaluacio.objects.get(id=idav)
+            amonList = amonList.filter(dataHora__gt=av.data1).filter(dataHora__lt=av.data2).order_by('dataHora')
+
+
 
         class AmObj: pass
         amons = []

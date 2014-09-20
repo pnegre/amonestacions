@@ -11,7 +11,8 @@ from gestib.models import *
 
 @permission_required('amonestacions.posar_amonestacions')
 def llistaAlumnes(request):
-	als = Alumne.objects.filter(llinatge1__istartswith=request.GET.get('l1',''))
+	patt = request.GET.get('l1', '')
+	als = Alumne.objects.filter(llinatge1__istartswith=patt)
 	res = [
 			a.llinatge1 + ' ' + a.llinatge2 + ', ' + a.nom + ' [' + a.expedient + ']'
 	for a in als ]

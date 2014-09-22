@@ -14,6 +14,8 @@ from amonestacions.forms import *
 from amonestacions.models import *
 from gestib.models import *
 
+import datetime
+
 import aux
 
 txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amonestacions. No cal que responeu.\n\n" +
@@ -129,16 +131,16 @@ def consultaAmonPost(request):
         # amonList = amonList.filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('dataHora')
 
         idany = post['any']
-        print idany
         anny = Any.objects.get(id=idany)
-        print anny
 
+        # TODO: filtrar per grup matriculat de l'any
 
         amonList= Amonestacio.objects.all()
         idav = post['av']
         if idav == '-1':
-            # TODO: Totes les amonestacions d'un curs
-            pass
+            d1 = datetime.datetime(year=anny.any1, month=9, day=1)
+            d2 = datetime.datetime(year=anny.any2, month=6, day=30)
+            amonList = amonList.filter(dataHora__gt=d1).filter(dataHora__lt=d2).order_by('dataHora')
         else:
             av = Avaluacio.objects.get(id=idav)
             amonList = amonList.filter(dataHora__gt=av.data1).filter(dataHora__lt=av.data2).order_by('dataHora')

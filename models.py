@@ -33,16 +33,6 @@ class Amonestacio(models.Model):
 		)
 
 
-
-# class Periode(models.Model):
-# 	descripcio = models.TextField()
-# 	dt1 = models.DateTimeField()
-# 	dt2 = models.DateTimeField()
-#
-# 	def __unicode__(self):
-# 		return self.descripcio
-
-
 class Config(models.Model):
 	maxPoints = models.IntegerField()
 

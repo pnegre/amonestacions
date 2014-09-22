@@ -34,3 +34,14 @@ def avaluacions(request):
 	avs = Avaluacio.objects.filter(anny=anny)
 	res = [ [a.id, str(a) ] for a in avs ]
 	return HttpResponse(simplejson.dumps(res), mimetype='application/json')
+
+
+
+# Donat un any, treure tots els grups dels cursos
+@permission_required('amonestacions.posar_amonestacions')
+def grupsAny(request):
+	aid = request.GET.get('any')
+	anny = Any.objects.get(id=aid)
+	grups = Grup.objects.filter(curs__anny=anny)
+	res = [ [g.id, str(g) ] for g in grups ]
+	return HttpResponse(simplejson.dumps(res), mimetype='application/json')

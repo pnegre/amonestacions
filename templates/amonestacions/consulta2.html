@@ -25,6 +25,17 @@ $(document).ready(function() {
 				$("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
 			}
 		});
+
+		$("#curs").text("");
+		$("#curs").append("<option value=" + "-1" + ">" + "Tot el curs" + "</option>");
+		$.get("/amonestacions/grupsany/?", { any: n }, function(data) {
+			for (i=0; i<data.length; i++) {
+				$("#curs").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+			}
+		});
+
+
+
 	});
 
 	$("#envia").click( function() {
@@ -110,6 +121,13 @@ tr.critic6 {
 			<td>
 				Avaluació:
 				<select id="av" name="av">
+				</select>
+			</td>
+
+
+			<td>
+				Curs:
+				<select id="curs" name="curs">
 				</select>
 			</td>
 

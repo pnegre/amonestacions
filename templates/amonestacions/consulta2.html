@@ -27,7 +27,7 @@ $(document).ready(function() {
 		});
 
 		$("#curs").text("");
-		$("#curs").append("<option value=" + "-1" + ">" + "Tot el curs" + "</option>");
+		$("#curs").append("<option value=" + "-1" + ">" + "Tots els grups" + "</option>");
 		$.get("/amonestacions/grupsany/?", { any: n }, function(data) {
 			for (i=0; i<data.length; i++) {
 				$("#curs").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
@@ -68,6 +68,7 @@ table#t1 {
 
 div#results {
 	display: block;
+	margin-top: 50px;
 }
 
 tr.critic0 {

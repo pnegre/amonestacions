@@ -35,12 +35,12 @@
 	{% ifequal a.critic "6" %} <tr class="t1"> {% endifequal %}
 	<td> <a class="aabb" href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
 	<td> {{ a.last }} </td>
-	<td> {{ a.alumne.grup }} </td>
+	<td> {{ a.grup }} </td>
 	<td> {{ a.pts }} </td>
 	</tr>
-	<tr class="t2"><td colspan="2"> 
+	<tr class="t2"><td colspan="2">
 		Tutor: {{ a.alumne.grup.tutor }} <br><br>
-		Descripció: {{ a.descripcio }} 
+		Descripció: {{ a.descripcio }}
 	</td></tr>
 
 {% endfor %}
@@ -51,4 +51,3 @@
 
 
 {% endif %}
-

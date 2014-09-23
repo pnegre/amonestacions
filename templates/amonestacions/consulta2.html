@@ -26,11 +26,11 @@ $(document).ready(function() {
 			}
 		});
 
-		$("#curs").text("");
-		$("#curs").append("<option value=" + "-1" + ">" + "Tots els grups" + "</option>");
+		$("#grup").text("");
+		$("#grup").append("<option value=" + "-1" + ">" + "Tots els grups" + "</option>");
 		$.get("/amonestacions/grupsany/?", { any: n }, function(data) {
 			for (i=0; i<data.length; i++) {
-				$("#curs").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+				$("#grup").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
 			}
 		});
 
@@ -127,8 +127,8 @@ tr.critic6 {
 
 
 			<td>
-				Curs:
-				<select id="curs" name="curs">
+				Grup:
+				<select id="grup" name="grup">
 				</select>
 			</td>
 

@@ -133,8 +133,6 @@ def consultaAmonPost(request):
         idany = post['any']
         anny = Any.objects.get(id=idany)
 
-        # TODO: filtrar per grup matriculat de l'any
-
         amonList= Amonestacio.objects.all()
         idav = post['av']
         if idav == '-1':
@@ -145,7 +143,20 @@ def consultaAmonPost(request):
             av = Avaluacio.objects.get(id=idav)
             amonList = amonList.filter(dataHora__gt=av.data1).filter(dataHora__lt=av.data2).order_by('dataHora')
 
+        # Filtrem per grup matriculat de l'any
+        idgrup = post['grup']
+        if idgrup != '-1':
+            gp = Grup.objects.get(id=idgrup)
+            al2 = []
+            for a in amonList:
+                al = a.alumne
+                try:
+                    Matricula.objects.get(alumne=al, anny=anny, grup=gp)
+                    al2.append(a)
+                except:
+                    pass
 
+            amonList = al2
 
         class AmObj: pass
         amons = []
@@ -162,6 +173,14 @@ def consultaAmonPost(request):
             elif int(x.pts) == 5: x.critic = "5"
             else:                 x.critic = "6"
             x.last = aux.dataDarreraAmon(x.alumne)
+
+            try:
+                mat = Matricula.objects.get(alumne=temp[a]['al'], anny=anny)
+                gr = mat.grup
+                x.grup = str(gr)
+            except:
+                x.grup = '--'
+
             amons.append(x)
 
         amons = sorted(amons, key = lambda a: a.pts)

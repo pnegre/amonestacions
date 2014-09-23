@@ -5,13 +5,13 @@
 
 <script type="text/javascript">
 
-    $(".aabb").click(function() {
-        var link = $(this).attr('href');
-        $("#consulta2").load(link);
-        return false;
-
-
-    });
+    // $(".aabb").click(function() {
+    //     var link = $(this).attr('href');
+    //     $("#consulta2").load(link);
+    //     return false;
+    //
+    //
+    // });
 
 </script>
 
@@ -33,7 +33,7 @@
 	{% ifequal a.critic "4" %} <tr class="t1 critic4"> {% endifequal %}
 	{% ifequal a.critic "5" %} <tr class="t1 critic5"> {% endifequal %}
 	{% ifequal a.critic "6" %} <tr class="t1"> {% endifequal %}
-	<td> <a class="aabb" href="/amonestacions/veureAlumne/{{ perid }}/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
+	<td> <a class="aabb" href="/amonestacions/veureAlumne/{{ a.alumne.expedient }}">{{ a.alumne }}</a> </td>
 	<td> {{ a.last }} </td>
 	<td> {{ a.grup }} </td>
 	<td> {{ a.pts }} </td>

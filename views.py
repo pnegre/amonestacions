@@ -81,17 +81,17 @@ def novaAmon(request):
 # el núm. d'expedient de l'alumne i el període considerat
 # Treu la informació perquè es pugui carregar en AJAX a un div
 @permission_required('amonestacions.posar_amonestacions')
-def veureAlumne(request,perid,alumne_exp):
+def veureAlumne(request,alumne_exp):
     alumne = Alumne.objects.get(expedient=alumne_exp)
-    periode = Periode.objects.get(id=perid)
-    amonList = Amonestacio.objects.filter(alumne=alumne).filter(dataHora__gt=periode.dt1).filter(dataHora__lt=periode.dt2).order_by('-dataHora')
-    pts = aux.puntsAlumnePeriode(alumne,periode)
+    # amonList = Amonestacio.objects.filter(alumne=alumne).order_by('-dataHora')
+    # pts = aux.puntsAlumnePeriode(alumne,periode)
+    # pts = 0
     return renderResponse(
         request,
-        'amonestacions/alumne.html', {
+        'amonestacions/consulta3.html', {
             'alumne': alumne,
-            'amonList': amonList,
-            'punts': pts
+            # 'amonList': amonList,
+            # 'punts': pts,
     } )
 
 

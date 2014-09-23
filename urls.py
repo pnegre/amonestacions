@@ -18,5 +18,5 @@ urlpatterns = patterns('',
 	(r'^avaluacions/$', 'amonestacions.ajax.avaluacions'),
 	(r'^grupsany/$', 'amonestacions.ajax.grupsAny'),
 
-	(r'^veureAlumne/(?P<perid>\d+)/(?P<alumne_exp>\d+)$', 'amonestacions.views.veureAlumne', {}, "veure-alumne"),
+	(r'^veureAlumne/(?P<alumne_exp>\d+)$', 'amonestacions.views.veureAlumne', {}, "veure-alumne"),
 )

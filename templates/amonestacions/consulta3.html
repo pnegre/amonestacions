@@ -1,0 +1,66 @@
+
+
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    $.get("/amonestacions/anys/", function(data) {
+        for(i=0; i<data.length; i++) {
+            $("#any").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+        }
+        $("#any").change();
+    });
+
+    $("#any").change( function() {
+        var n = $(this).val();
+        $("#av").text("");
+        $("#av").append("<option value=" + "-1" + ">" + "Tot el curs" + "</option>");
+        $.get("/amonestacions/avaluacions/?", { any: n }, function(data) {
+            for (i=0; i<data.length; i++) {
+                $("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+            }
+        });
+    });
+
+});
+
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+<h1> Alumne {{ alumne }} </h1>
+
+
+
+
+<form id="formConsulta1">
+    <table border="1">
+        <tr>
+            <td>
+                Any acadèmic:
+                <select id="any" name="any">
+                </select>
+            </td>
+
+            <td>
+                Avaluació:
+                <select id="av" name="av">
+                </select>
+            </td>
+
+            <td>
+                <input type="submit" id="envia">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+{% endblock %}

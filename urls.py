@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 	(r'^stats/$', 'amonestacions.views.stats'),
 	(r'^informes/$', 'amonestacions.views.informes'),
 	(r'^amonsalumne/$', 'amonestacions.views.amonestacionsAlumne'),
+	(r'^emailstutors/$', 'amonestacions.views.emailstutors'),
 
 	(r'^llistaAlumnes/$', 'amonestacions.ajax.llistaAlumnes'),
 	(r'^anys/$', 'amonestacions.ajax.anys'),

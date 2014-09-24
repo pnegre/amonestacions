@@ -95,6 +95,10 @@ td.dscr {
 	<!-- || <a href="/amonestacions/informes/">Informes PDF</a> -->
 {% endif %}
 
+{% if user.is_superuser %}
+	|| <a href="/amonestacions/emailstutors/"> Assignar emails dels tutors </a>
+{% endif %}
+
 </div>
 
 <div>

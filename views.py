@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from amonestacions.forms import *
 from amonestacions.models import *
@@ -231,6 +232,16 @@ def consultaAlumne(request):
             'amonestacions/consultaAlumne.html', {
             'form': form,
     } )
+
+
+@staff_member_required
+def emailstutors(request):
+    return renderResponse(
+        request,
+        'amonestacions/emailstutors.html', {}
+    )
+
+
 
 @permission_required('amonestacions.posar_amonestacions')
 def stats(request):

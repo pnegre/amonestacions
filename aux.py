@@ -38,6 +38,13 @@ def filtraAmonestacionsPeriode(amonList, anny, avid):
 #
 #     return None
 
+def anyActual():
+    now = datetime.datetime.now()
+    for a in Any.objects.all():
+        d1 = datetime.datetime(year=a.any1, month=9, day=1)
+        d2 = datetime.datetime(year=a.any2, month=6, day=30)
+        if now > d1 and now < d2: return a
+
 
 def resumeixAmonestacions(amonList):
     tmp = {}

@@ -38,6 +38,7 @@ def renderResponse(request,tmpl,dic):
 @permission_required('amonestacions.posar_amonestacions')
 def novaAmon(request):
     ok = False
+    missatge = ""
     if request.method == 'POST':
         form = NovaAmonestacioForm(request.POST)
         if form.is_valid():
@@ -46,16 +47,20 @@ def novaAmon(request):
 
             try:
                 al = form.amonestacio.alumne
-                periode = aux.periodeActual()
-                pts = aux.puntsAlumnePeriode(al,periode)
+                # periode = aux.periodeActual()
+                # pts = aux.puntsAlumnePeriode(al,periode)
+                anny = aux.anyActual()
+                mat = Matricula.objects.get(alumne=al, anny=anny)
+                grup = mat.grup
+                print grup
 
-                emailTutor = InfoGrup.objects.get(grup=form.amonestacio.alumne.grup).emailTutor
+                emailTutor = InfoGrup.objects.get(grup=grup).emailTutor
                 txt = txtEmail % ( unicode(form.amonestacio.alumne),
                         unicode(form.amonestacio.gravetat.nom),
                         unicode(form.amonestacio.gravetat.punts),
                         unicode(form.amonestacio.professor),
                         unicode(form.amonestacio.descripcio),
-                        unicode(pts)
+                        # unicode(pts)
                 )
                 send_mail(unicode('[Nova amonestació] alumne ','utf-8') + unicode(form.amonestacio.alumne),
                     txt,
@@ -64,7 +69,8 @@ def novaAmon(request):
 
             except Exception as e:
                 # dins type(e) hi ha el tipus...
-                pass
+                missatge = "La incidència s'ha enregistrat, però no s'ha pogut enviar el missatge al tutor. " + str(e)
+
     else:
         form = NovaAmonestacioForm(initial={'dta': datetime.datetime.now().strftime('%d/%m/%Y'), })
 
@@ -72,40 +78,23 @@ def novaAmon(request):
         request,
         'amonestacions/novaAmon.html', {
             'ok': ok,
+            'missatge': missatge,
             'form': form,
     } )
 
 
 
 # Mostra les amonestacions d'un alumne. Accepta com a paràmetres
-# el núm. d'expedient de l'alumne i el període considerat
-# Treu la informació perquè es pugui carregar en AJAX a un div
+# el núm. d'expedient de l'alumne
+# Les amonestacions es mostren per ajax
 @permission_required('amonestacions.posar_amonestacions')
 def veureAlumne(request,alumne_exp):
     alumne = Alumne.objects.get(expedient=alumne_exp)
-    # amonList = Amonestacio.objects.filter(alumne=alumne).order_by('-dataHora')
-    # pts = aux.puntsAlumnePeriode(alumne,periode)
-    # pts = 0
     return renderResponse(
         request,
         'amonestacions/consulta3.html', {
             'alumne': alumne,
-            # 'amonList': amonList,
-            # 'punts': pts,
     } )
-
-
-
-# Vista molt simple que es limita a mostrar el form de la consulta d'amonestacions
-# Per javascript, la funció mostra per ajax la llista i els detalls de cada alumne, si es demanen
-# @permission_required('amonestacions.posar_amonestacions')
-# def consultaAmon(request):
-#     form = ConsultaAmonForm()
-#     return renderResponse(
-#             request,
-#             'amonestacions/consulta.html', {
-#             'form': form,
-#     } )
 
 
 @permission_required('amonestacions.posar_amonestacions')

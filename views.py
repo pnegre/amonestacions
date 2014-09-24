@@ -195,6 +195,35 @@ def consultaAmonPost(request):
 
 
 @permission_required('amonestacions.posar_amonestacions')
+def amonestacionsAlumne(request):
+    post = request.POST
+    aid = post.get('any')
+    avid = post.get('av')
+    exped = post.get('exp')
+
+    try:
+        alumne = Alumne.objects.get(expedient=exped)
+        anny = Any.objects.get(id=aid)
+        amonList = Amonestacio.objects.filter(alumne=alumne).order_by('-dataHora')
+
+        amonList = aux.filtraAmonestacionsPeriode(amonList, anny, avid)
+        punts = aux.calculaPunts(amonList)
+
+        return renderResponse(
+            request,
+            'amonestacions/alumne.html', {
+                'amonList': amonList,
+                'punts': punts,
+            }
+        )
+    except Exception as ex:
+        print ex
+
+
+
+
+
+@permission_required('amonestacions.posar_amonestacions')
 def consultaAlumne(request):
     if request.method == 'POST':
         form = ConsultaAmonAlumneForm(request.POST)

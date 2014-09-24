@@ -7,6 +7,8 @@ from django.utils import simplejson
 from amonestacions.models import *
 from gestib.models import *
 
+import aux
+
 
 
 @permission_required('amonestacions.posar_amonestacions')
@@ -45,12 +47,3 @@ def grupsAny(request):
 	grups = Grup.objects.filter(curs__anny=anny)
 	res = [ [g.id, str(g) ] for g in grups ]
 	return HttpResponse(simplejson.dumps(res), mimetype='application/json')
-
-
-@permission_required('amonestacions.posar_amonestacions')
-def amonestacionsAlumne(request):
-	post = request.POST
-	aid = post.get('any')
-	avid = post.get('av')
-	exped = post.get('exp')
-	print "--", aid, avid, exped

@@ -11,13 +11,12 @@ urlpatterns = patterns('',
 	(r'^consultaAlumne/$', 'amonestacions.views.consultaAlumne'),
 	(r'^stats/$', 'amonestacions.views.stats'),
 	(r'^informes/$', 'amonestacions.views.informes'),
-
+	(r'^amonsalumne/$', 'amonestacions.views.amonestacionsAlumne'),
 
 	(r'^llistaAlumnes/$', 'amonestacions.ajax.llistaAlumnes'),
 	(r'^anys/$', 'amonestacions.ajax.anys'),
 	(r'^avaluacions/$', 'amonestacions.ajax.avaluacions'),
 	(r'^grupsany/$', 'amonestacions.ajax.grupsAny'),
-	(r'^amonsalumne/$', 'amonestacions.ajax.amonestacionsAlumne'),
 
 	(r'^veureAlumne/(?P<alumne_exp>\d+)$', 'amonestacions.views.veureAlumne', {}, "veure-alumne"),
 )

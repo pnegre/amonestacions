@@ -27,6 +27,15 @@ $(document).ready(function() {
         });
     });
 
+    $("#envia").click( function() {
+        var data = $("#formConsulta1").serializeArray();
+        // alert(data);
+        $("#results").load('/amonestacions/amonsalumne/', data, function() {
+            // $("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });
+        } );
+        return false;
+    });
+
 });
 
 </script>
@@ -56,11 +65,15 @@ $(document).ready(function() {
             </td>
 
             <td>
+                <input type="hidden" name="exp" value="{{ alumne.expedient }}">
                 <input type="submit" id="envia">
             </td>
         </tr>
     </table>
 </form>
+
+<div id="results">
+</div>
 
 
 {% endblock %}

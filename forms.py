@@ -96,14 +96,13 @@ class ConsultaAmonForm(forms.Form):
 
 class ConsultaAmonAlumneForm(forms.Form):
     alumne = forms.CharField(widget=forms.TextInput(attrs={'size':'40'}))
-    periode = forms.ChoiceField()
 
-    def __init__(self,*args,**kwrds):
-        super(ConsultaAmonAlumneForm,self).__init__(*args,**kwrds)
-        self.fields['periode'].choices = [[x.id,unicode(x)] for x in Periode.objects.all()]
-        x = aux.periodeActual()
-        if x is not None:
-            self.fields['periode'].initial = x.id
+    # def __init__(self,*args,**kwrds):
+    #     super(ConsultaAmonAlumneForm,self).__init__(*args,**kwrds)
+    #     self.fields['periode'].choices = [[x.id,unicode(x)] for x in Periode.objects.all()]
+    #     x = aux.periodeActual()
+    #     if x is not None:
+    #         self.fields['periode'].initial = x.id
 
     def clean_alumne(self):
         data = self.cleaned_data['alumne']

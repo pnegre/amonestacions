@@ -8,20 +8,31 @@
 
 $(document).ready(function() {
 
-    var options = {
-        script: "/amonestacions/llistaAlumnes/?",
-        varname: "l1",
-        json: true,
-        maxresults: 35
-    };
-    var as = new bsn.AutoSuggest('id_alumne', options);
+    // var options = {
+    //     script: "/amonestacions/llistaAlumnes/?",
+    //     varname: "l1",
+    //     json: true,
+    //     maxresults: 35
+    // };
+    // var as = new bsn.AutoSuggest('id_alumne', options);
 
-    $("input:submit").click(function() {
-        var data = $(this).parent().serializeArray();
-        $("#dadesalumne").load("/amonestacions/consultaAlumne/", data);
-        return false;
-        
+    $("#id_alumne").autocomplete( {
+        source: function(request, response) {
+            $.get("/amonestacions/llistaAlumnes/", { l1: $("#id_alumne").val() }, function(data) {
+                response(data.results);
+            });
+        }
+
     });
+
+    // $("input:submit").click(function() {
+    //     var data = $(this).parent().serializeArray();
+    //     window.location.href = "/amonestacions/consultaAlumne/" + data[''];
+    //     return false;
+    //     // $("#dadesalumne").load("/amonestacions/consultaAlumne/", data);
+    //     // return false;
+    //
+    // });
 
 });
 

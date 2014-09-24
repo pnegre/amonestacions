@@ -230,11 +230,8 @@ def consultaAlumne(request):
         if form.is_valid():
             s = re.search('\[(\d+)\]',request.POST['alumne'])
             exp = s.group(1)
-
             alumne = Alumne.objects.get(expedient=exp)
-            periode = Periode.objects.get(id=request.POST['periode'])
-
-            return HttpResponseRedirect('/amonestacions/veureAlumne/' + str(periode.id) + '/' + str(alumne.expedient))
+            return HttpResponseRedirect('/amonestacions/veureAlumne/' + str(alumne.expedient))
         else:
             return HttpResponse("")
     else:

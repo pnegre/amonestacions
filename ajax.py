@@ -24,7 +24,7 @@ def llistaAlumnes(request):
 
 @permission_required('amonestacions.posar_amonestacions')
 def anys(request):
-	annys = Any.objects.all()
+	annys = Any.objects.all().order_by('-any1')
 	res = [ [a.id, str(a) ] for a in annys ]
 	return HttpResponse(simplejson.dumps(res), mimetype='application/json')
 

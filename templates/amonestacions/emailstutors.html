@@ -7,6 +7,13 @@
 
 $(document).ready(function() {
 
+    $.get("/amonestacions/anys/", function(data) {
+        for(i=0; i<data.length; i++) {
+            $("#any").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
+        }
+        $("#any").change();
+    });
+
 });
 
 
@@ -23,5 +30,14 @@ $(document).ready(function() {
 {% block body %}
 
 <h1> Emails tutors </h1>
+
+<form method="post">
+
+    Any acadèmic:
+    <select id="any" name="any">
+    </select>
+
+    <input type="submit">
+</form>
 
 {% endblock %}

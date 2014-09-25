@@ -1,0 +1,41 @@
+
+
+
+{% extends "amonestacions/base.html" %}
+
+{% block header %}
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+});
+
+
+</script>
+
+
+<style type="text/css">
+
+.tdgrup {
+    width: 250px;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1> E-mails dels tutors per any {{ anny }} </h1>
+
+<table>
+{% for g in infogrups %}
+
+    <tr> <td class="tdgrup"> {{ g.grup }}: </td> <td> <input type="text" value="{{ g.emailTutor }}"> </td> </tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}

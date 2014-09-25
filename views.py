@@ -234,12 +234,43 @@ def consultaAlumne(request):
     } )
 
 
+# Assignació dels tutors de cada grup
+# (Es requreix ésser administrador)
 @staff_member_required
 def emailstutors(request):
-    return renderResponse(
-        request,
-        'amonestacions/emailstutors.html', {}
-    )
+    if request.method == 'POST':
+        post = request.POST
+        idany = post.get('any')
+        anny = Any.objects.get(id=idany)
+        grups = []
+        for g in Grup.objects.all():
+            mats = Matricula.objects.filter(anny=anny, grup=g)
+            if len(mats) > 0:
+                grups.append(g)
+
+        infogrups = []
+        for g in grups:
+            try:
+                ig = InfoGrup.objects.get(grup=g)
+                infogrups.append(ig)
+            except:
+                ig = InfoGrup(grup=g)
+                ig.save()
+                infogrups.append(ig)
+
+        return renderResponse(
+            request,
+            'amonestacions/emailstutors2.html', {
+                'infogrups': infogrups,
+                'anny': anny,
+            }
+        )
+
+    else:
+        return renderResponse(
+            request,
+            'amonestacions/emailstutors.html', {}
+        )
 
 
 

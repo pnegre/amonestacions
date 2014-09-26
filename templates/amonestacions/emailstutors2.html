@@ -9,6 +9,17 @@
 
 $(document).ready(function() {
 
+    $("[type=submit]").click(function() {
+        infogrup_id = $(this).attr("igrup");
+        email = $(this).parent().parent().find("input[type=text]").val();
+        if (email != "") {
+            $.post("/amonestacions/tutorgrup/", { "igrup": infogrup_id, "email": email }, function() {
+                alert("correcte");
+            })
+        }
+        return false;
+    })
+
 });
 
 
@@ -17,8 +28,8 @@ $(document).ready(function() {
 
 <style type="text/css">
 
-.tdgrup {
-    width: 250px;
+.tdgrup, .tdtutor {
+    width: 230px;
 }
 
 </style>
@@ -33,7 +44,9 @@ $(document).ready(function() {
 <table>
 {% for g in infogrups %}
 
-    <tr> <td class="tdgrup"> {{ g.grup }}: </td> <td> <input type="text" value="{{ g.emailTutor }}"> </td> </tr>
+    <tr> <td class="tdgrup"> {{ g.grup }}: </td> <td class="tdtutor"> <input type="text" value="{{ g.emailTutor }}"> </td>
+        <td> <input type="submit" value="canvia" igrup="{{ g.id }}"></td>
+    </tr>
 
 {% endfor %}
 </table>

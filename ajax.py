@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from django.http import HttpResponse
 from django.utils import simplejson
@@ -9,6 +10,21 @@ from gestib.models import *
 
 import aux
 
+
+@staff_member_required
+def tutorGrup(request):
+	try:
+		if request.method == 'POST':
+			post = request.POST
+			idgrup = post.get('igrup')
+			email = post.get('email')
+			print idgrup, email
+			infogrup = InfoGrup.objects.get(id=idgrup)
+			infogrup.emailTutor = email
+			infogrup.save()
+			return HttpResponse()
+	except Exception as e:
+		print e
 
 
 @permission_required('amonestacions.posar_amonestacions')

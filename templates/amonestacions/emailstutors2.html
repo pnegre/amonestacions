@@ -10,15 +10,22 @@
 $(document).ready(function() {
 
     $("[type=submit]").click(function() {
-        infogrup_id = $(this).attr("igrup");
+        var but = $(this);
+        infogrup_id = but.attr("igrup");
         email = $(this).parent().parent().find("input[type=text]").val();
-        if (email != "") {
-            $.post("/amonestacions/tutorgrup/", { "igrup": infogrup_id, "email": email }, function() {
-                alert("correcte");
-            })
-        }
+
+        but.val("canviant...");
+        $.post("/amonestacions/tutorgrup/", { "igrup": infogrup_id, "email": email }, function() {
+            but.val("canvia");
+            but.prop('disabled', true);
+        });
+
         return false;
     })
+
+    $(".inputtutor").on('input', function() {
+        $(this).parent().parent().find("input[type=submit]").prop('disabled', false);
+    });
 
 });
 
@@ -44,8 +51,8 @@ $(document).ready(function() {
 <table>
 {% for g in infogrups %}
 
-    <tr> <td class="tdgrup"> {{ g.grup }}: </td> <td class="tdtutor"> <input type="text" value="{{ g.emailTutor }}"> </td>
-        <td> <input type="submit" value="canvia" igrup="{{ g.id }}"></td>
+    <tr> <td class="tdgrup"> {{ g.grup }}: </td> <td class="tdtutor"> <input class="inputtutor" type="text" value="{{ g.emailTutor }}"> </td>
+        <td> <input type="submit" value="canvia" igrup="{{ g.id }}" disabled></td>
     </tr>
 
 {% endfor %}

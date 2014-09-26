@@ -53,7 +53,6 @@ def novaAmon(request):
                 anny = aux.anyActual()
                 mat = Matricula.objects.get(alumne=al, anny=anny)
                 grup = mat.grup
-                print grup
 
                 emailTutor = InfoGrup.objects.get(grup=grup).emailTutor
                 txt = txtEmail % ( unicode(form.amonestacio.alumne),

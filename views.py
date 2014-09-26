@@ -55,6 +55,9 @@ def novaAmon(request):
                 grup = mat.grup
 
                 emailTutor = InfoGrup.objects.get(grup=grup).emailTutor
+                if emailTutor == "":
+                    raise Exception("Tutor field blank")
+                
                 txt = txtEmail % ( unicode(form.amonestacio.alumne),
                         unicode(form.amonestacio.gravetat.nom),
                         unicode(form.amonestacio.gravetat.punts),

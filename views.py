@@ -23,7 +23,7 @@ txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amon
         "L'alumne %s ha estat sancionat mitjançant el programa d'amonestacions " +
         "amb una falta de tipus %s\n\n" + "Això comporta actualitzar el seu saldo en %s punts\n\n" +
         "Professor que ha introduit la falta: %s\n\n" +
-        "Motiu/explicació: %s\n\n")
+        "Motiu/explicació: %s\n\n", 'utf-8')
         # "Saldo de punts en el període actiu: %s\n\n", 'utf-8')
 
 

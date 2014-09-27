@@ -23,8 +23,8 @@ txtEmail = unicode("Això és un missatge automàtic, enviat pel programa d'amon
         "L'alumne %s ha estat sancionat mitjançant el programa d'amonestacions " +
         "amb una falta de tipus %s\n\n" + "Això comporta actualitzar el seu saldo en %s punts\n\n" +
         "Professor que ha introduit la falta: %s\n\n" +
-        "Motiu/explicació: %s\n\n" +
-        "Saldo de punts en el període actiu: %s\n\n", 'utf-8')
+        "Motiu/explicació: %s\n\n")
+        # "Saldo de punts en el període actiu: %s\n\n", 'utf-8')
 
 
 # Quan treiem les pàgines amb RequestContext, fem visibles a la template
@@ -57,7 +57,7 @@ def novaAmon(request):
                 emailTutor = InfoGrup.objects.get(grup=grup).emailTutor
                 if emailTutor == "":
                     raise Exception("Tutor field blank")
-                
+
                 txt = txtEmail % ( unicode(form.amonestacio.alumne),
                         unicode(form.amonestacio.gravetat.nom),
                         unicode(form.amonestacio.gravetat.punts),

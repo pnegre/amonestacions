@@ -24,17 +24,23 @@ $(document).ready(function() {
             for (i=0; i<data.length; i++) {
                 $("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
             }
+            showResults();
         });
     });
 
-    $("#envia").click( function() {
+    $("#av").change(function() {
+        showResults();
+    })
+
+
+    function showResults() {
         var data = $("#formConsulta1").serializeArray();
         // alert(data);
         $("#results").load('/amonestacions/amonsalumne/', data, function() {
             // $("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });
         } );
         return false;
-    });
+    }
 
 });
 
@@ -66,7 +72,6 @@ $(document).ready(function() {
 
             <td>
                 <input type="hidden" name="exp" value="{{ alumne.expedient }}">
-                <input type="submit" id="envia">
             </td>
         </tr>
     </table>

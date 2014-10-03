@@ -45,6 +45,7 @@ $(document).ready(function() {
 			for (i=0; i<data.length; i++) {
 				$("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
 			}
+			showResults();
 		});
 
 		$("#grup").text("");
@@ -53,19 +54,21 @@ $(document).ready(function() {
 			for (i=0; i<data.length; i++) {
 				$("#grup").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
 			}
+			showResults();
 		});
-
-
-
 	});
 
-	$("#envia").click( function() {
+	$("#grup, #av").change( function() {
+		showResults();
+	});
+
+	function showResults() {
 		var data = $("#formConsulta1").serializeArray();
 		$("#results").load('/amonestacions/consultagruppost/', data, function() {
 			$("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });
 		} );
 		return false;
-	});
+	}
 
 });
 
@@ -151,10 +154,6 @@ tr.critic6 {
 				Grup:
 				<select id="grup" name="grup">
 				</select>
-			</td>
-
-			<td>
-				<input type="submit" id="envia">
 			</td>
 		</tr>
 	</table>

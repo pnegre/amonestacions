@@ -64,6 +64,7 @@ $(document).ready(function() {
 
 	function showResults() {
 		var data = $("#formConsulta1").serializeArray();
+		$("#results").text("Carregant...");
 		$("#results").load('/amonestacions/consultagruppost/', data, function() {
 			$("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });
 		} );

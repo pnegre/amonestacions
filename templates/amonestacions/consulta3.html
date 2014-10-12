@@ -36,6 +36,7 @@ $(document).ready(function() {
     function showResults() {
         var data = $("#formConsulta1").serializeArray();
         // alert(data);
+        $("#results").text("Carregant...")
         $("#results").load('/amonestacions/amonsalumne/', data, function() {
             // $("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });
         } );
@@ -68,9 +69,6 @@ $(document).ready(function() {
                 Avaluació:
                 <select id="av" name="av">
                 </select>
-            </td>
-
-            <td>
                 <input type="hidden" name="exp" value="{{ alumne.expedient }}">
             </td>
         </tr>

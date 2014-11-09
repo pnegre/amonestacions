@@ -35,7 +35,6 @@ $(document).ready(function() {
 
     function showResults() {
         var data = $("#formConsulta1").serializeArray();
-        // alert(data);
         $("#results").text("Carregant...")
         $("#results").load('/amonestacions/amonsalumne/', data, function() {
             // $("#mytable").tablesorter({ headers: { 1: { sorter:'dts' } } });

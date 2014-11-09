@@ -45,7 +45,7 @@ $(document).ready(function() {
 			for (i=0; i<data.length; i++) {
 				$("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
 			}
-			showResults();
+			//showResults();
 		});
 
 		$("#grup").text("");
@@ -60,6 +60,7 @@ $(document).ready(function() {
 
 	$("#grup, #av").change( function() {
 		showResults();
+		alert("ee");
 	});
 
 	function showResults() {

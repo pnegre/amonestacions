@@ -40,7 +40,7 @@ $(document).ready(function() {
 	$("#any").change( function() {
 		var n = $(this).val();
 		$("#av").text("");
-		$("#av").append("<option value=" + "-1" + ">" + "Tot el curs" + "</option>");
+		$("#av").append('<option value="-1"> Tot el curs </option>');
 		$.get("/amonestacions/avaluacions/?", { any: n }, function(data) {
 			for (i=0; i<data.length; i++) {
 				$("#av").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
@@ -49,7 +49,7 @@ $(document).ready(function() {
 		});
 
 		$("#grup").text("");
-		$("#grup").append("<option value=" + "-1" + ">" + "Tots els grups" + "</option>");
+		$("#grup").append('<option value="-1"> Tots els grups </option>');
 		$.get("/amonestacions/grupsany/?", { any: n }, function(data) {
 			for (i=0; i<data.length; i++) {
 				$("#grup").append("<option value=" + data[i][0] + ">" + data[i][1] + "</option>");
@@ -60,7 +60,6 @@ $(document).ready(function() {
 
 	$("#grup, #av").change( function() {
 		showResults();
-		alert("ee");
 	});
 
 	function showResults() {

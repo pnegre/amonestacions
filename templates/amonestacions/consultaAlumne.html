@@ -87,6 +87,7 @@ table#t1 ul {
 
 {% if form %}
     <form method="post">
+    {% csrf_token %}
 
     <table id="t1">
 

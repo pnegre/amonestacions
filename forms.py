@@ -21,7 +21,7 @@ class NovaAmonestacioForm(forms.Form):
     def __init__(self,*args,**kwrds):
         super(NovaAmonestacioForm,self).__init__(*args,**kwrds)
         self.fields['gravetat'].choices = [[x.id,x.nom] for x in Gravetat.objects.all()]
-        self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.all().order_by('llinatge1')]
+        self.fields['profe'].choices = [[x.codi,x] for x in Professor.objects.filter(actiu=True).order_by('llinatge1')]
         self.fields['profe'].choices.insert(0,['null','Sel·lecciona...'])
         self.fields['gravetat'].choices.insert(0,['null','Sel·lecciona...'])
         self.fields['dta'].input_formats = [ '%d/%m/%Y', ]
@@ -60,9 +60,9 @@ class NovaAmonestacioForm(forms.Form):
         print data['dta']
         print type(data['dta'])
 
-        gra = Gravetat.objects.filter(id=data['gravetat'])[0]
-        alu = Alumne.objects.filter(expedient=exp)[0]
-        prof = Professor.objects.filter(codi=data['profe'])[0]
+        gra = Gravetat.objects.get(id=data['gravetat'])
+        alu = Alumne.objects.get(expedient=exp, actiu=True)
+        prof = Professor.objects.get(codi=data['profe'], actiu=True)
         dHora = datetime.datetime.fromordinal(data['dta'].toordinal()) + \
                 datetime.timedelta(hours=hours,minutes=mins)
 

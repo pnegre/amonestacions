@@ -54,7 +54,11 @@ def novaAmon(request):
                 mat = Matricula.objects.get(alumne=al, anny=anny)
                 grup = mat.grup
 
-                emailTutor = InfoGrup.objects.get(grup=grup).emailTutor
+                try:
+                    emailTutor = InfoGrup.objects.get(grup=grup).emailTutor
+                except:
+                    emailTutor = ""
+
                 if emailTutor == "":
                     raise Exception("Tutor field blank")
 
